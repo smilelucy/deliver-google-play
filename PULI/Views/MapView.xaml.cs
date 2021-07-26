@@ -92,8 +92,8 @@ namespace PULI.Views
         public static string[] sortList;
         Dictionary<string, bool> punchList = new Dictionary<string, bool>(); // 判斷簽到+簽退都成功的
         Dictionary<string, bool> punch_in = new Dictionary<string, bool>(); // 判斷簽到成功的
-       // Dictionary<string, bool> tmp_punch_in = new Dictionary<string, bool>(); // 
-        //Dictionary<string, bool> tmp_punch_out = new Dictionary<string, bool>(); // 
+                                                                            // Dictionary<string, bool> tmp_punch_in = new Dictionary<string, bool>(); // 
+                                                                            //Dictionary<string, bool> tmp_punch_out = new Dictionary<string, bool>(); // 
         Dictionary<string, bool> punch_out = new Dictionary<string, bool>(); // 判斷簽退成功的
         Dictionary<string, bool> isform = new Dictionary<string, bool>(); // 判斷跳出問卷的
         Dictionary<string, bool> gomap = new Dictionary<string, bool>(); // 判斷導航的
@@ -104,8 +104,8 @@ namespace PULI.Views
         public static PunchDataBaseTmp PunchTmp;  // 紀錄無網路環境下，後來自動簽到成功的
         public static PunchDataBaseTmp2 PunchTmp2; // 紀錄無網路環境下，後來自動簽退成功的
         public static PunchYesOrNo PunchYN; // 紀錄是否進入判斷打卡(無論打卡成功與否)
-       // public static string entrytxt;
-        //public static int number;
+                                            // public static string entrytxt;
+                                            //public static int number;
         public static bool isSet = false;
         //public static int TmpID;
         //public static string TmpNum;
@@ -140,7 +140,7 @@ namespace PULI.Views
         {
             InitializeComponent();
             //Console.WriteLine("here~~11~");
-            
+
             //Console.WriteLine("here~22~~");
             AccDatabase = new TempDatabase();
             PunchDatabase = new PunchDatabase();
@@ -168,12 +168,12 @@ namespace PULI.Views
             //    }
             //});
             //Console.WriteLine("GGG~~~" + MainPage.dateDatabase.GetAccountAsync2().Count());
-           
+
             Messager();
-            if(MainPage.AUTH == "4") // 外送員(有打卡功能)
+            if (MainPage.AUTH == "4") // 外送員(有打卡功能)
             {
                 Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick);
-              
+
                 Console.WriteLine("shipment~~~");
             }
             //else if(MainPage.AUTH == "6" && MainPage.userList.daily_shipment_nums > 0) // 社工幫忙送餐(有打卡功能)
@@ -190,8 +190,8 @@ namespace PULI.Views
             //    Device.StartTimer(TimeSpan.FromSeconds(5), OnTimerTick2);
             //    //Console.WriteLine("helper");
             //}
-            
-          
+
+
         }
 
         private async void setView()
@@ -200,14 +200,14 @@ namespace PULI.Views
             {
                 if (clientList == null)
                 {
-                   
+
                     questionnaireslist = await web.Get_Questionaire(MainPage.token); // 拿問卷
-                    
-                    
-                   
+
+
+
                     //Console.WriteLine("TOKEN" +MainPage.token);
-                   
-                    if (MainPage.AUTH == "4" )
+
+                    if (MainPage.AUTH == "4")
                     {
 
                         //Console.WriteLine("外送員~~~~");
@@ -215,7 +215,7 @@ namespace PULI.Views
                         MyMap.IsEnabled = true;
                         //Console.WriteLine("AUTH " + MainPage.AUTH);
                         Console.WriteLine("timemap~~~ " + MainPage._time);
-                        if(MainPage._time == "早上") // 早上跟下午用不同api
+                        if (MainPage._time == "早上") // 早上跟下午用不同api
                         {
                             totalList = await web.Get_Daily_Shipment(MainPage.token);
                         }
@@ -223,19 +223,19 @@ namespace PULI.Views
                         {
                             totalList = await web.Get_Daily_Shipment_night(MainPage.token);
                         }
-                        
-                        
-                      
+
+
+
                         clientList = await web.Get_Client(MainPage.token);
                         //Console.WriteLine("DATA2~" + clientList.Count());
-                        
+
                         var data = await web.Get_Client2(MainPage.token); // 拿案主資料
                         Console.WriteLine("DATA~" + data.Count());
                         for (int i = 0; i < data.Count; i++)
                         {
 
                             cList2.Add(data[i]); // 案主資料的list
-                           
+
                             //Console.WriteLine("dataname~~~" + data[i].ct_name);
                             //Console.WriteLine("www~~~" + total_reserve_name.Contains(data[i].ct_name));
                             if (!total_reserve_name.Contains(data[i].ct_name)) // 過濾一個案主有兩筆資料
@@ -249,19 +249,19 @@ namespace PULI.Views
 
 
                         }
-                        Console.WriteLine("cList222222~~~ " + cList2.Count());
+                        //Console.WriteLine("cList222222~~~ " + cList2.Count());
                         total_need_to_serve = total_reserve_name.Count(); // 過濾完兩筆訂單的名單後，所有要送餐案主家的數量
-                        //Console.WriteLine("total_need_to_serve~~ " + total_reserve_name.Count());
-                        //cList2.Reverse();
-                        //for (int s = 0; s < cList2.Count(); s++)
-                        //{
-                            //Console.WriteLine("PPPP" + cList2[s].ct_name);
-                        //}
-                        //Console.WriteLine("SSSS" + cList2.Count);
-                        //totalList = await web.Get_Daily_Shipment(MainPage.token);
+                                                                          //Console.WriteLine("total_need_to_serve~~ " + total_reserve_name.Count());
+                                                                          //cList2.Reverse();
+                                                                          //for (int s = 0; s < cList2.Count(); s++)
+                                                                          //{
+                                                                          //Console.WriteLine("PPPP" + cList2[s].ct_name);
+                                                                          //}
+                                                                          //Console.WriteLine("SSSS" + cList2.Count);
+                                                                          //totalList = await web.Get_Daily_Shipment(MainPage.token);
                         Console.WriteLine("Data4~ " + totalList.daily_shipments.Count());
                         Console.WriteLine("QQQQ " + totalList.daily_shipments.Count);
-                       
+
                         Console.WriteLine("DATA3~ " + clientList.Count());
                         //if (clientList != null)
                         //{
@@ -314,7 +314,7 @@ namespace PULI.Views
                                         AccDatabase.DeleteAll();  // 紀錄問卷的
                                         PunchDatabase.DeleteAll(); // 記錄無網路環境打卡的
                                         PunchDatabase2.DeleteAll(); // 紀錄案主家打卡進度的(setnum)
-                                        if(PunchDatabase2.GetAccountAsync2().Count() == 0)
+                                        if (PunchDatabase2.GetAccountAsync2().Count() == 0)
                                         {
                                             Console.WriteLine("new_day~~no_setnum ");
                                         }
@@ -323,7 +323,7 @@ namespace PULI.Views
                                         PunchYN.DeleteAll(); // 紀錄是否進入判斷打卡(無論打卡成功與否)
                                         name_list_in.Clear(); // 紀錄處理無網路簽到成功
                                         name_list_out.Clear(); // 紀錄處理無網路簽退成功
-                                        TestView.ChooseDB.DeleteAll(); 
+                                        TestView.ChooseDB.DeleteAll();
                                         TestView.ResetDB.DeleteAll();
                                         TestView.EntryDB.DeleteAll();
                                         TestView.EntrytxtDB.DeleteAll();
@@ -371,7 +371,7 @@ namespace PULI.Views
                                         foreach (var TempAnsList in c)
                                         {
                                             //Console.WriteLine("tmpname1111~~~" + TempAnsList.name);
-                                           
+
                                             if (TempAnsList.name == totalList.daily_shipments[i].ct_name)
                                             {
                                                 punchList[totalList.daily_shipments[i].ct_name] = true;
@@ -488,14 +488,14 @@ namespace PULI.Views
 
                                 //}
                                 //Console.WriteLine("setnum22~~" + setnum);
-                                
+
                                 ////Console.WriteLine("WHOQAZ~~~~" + totalList.daily_shipments[setnum].ct_name);
                                 ////Console.WriteLine("punchlist~~~" + punchList[totalList.daily_shipments[setnum].ct_name]);
                             }
                             //Console.WriteLine("setnum1111~~~~" + setnum);
                             //PinMarker(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps);
 
-                         
+
                         }
 
 
@@ -538,7 +538,7 @@ namespace PULI.Views
                     //    // //Console.WriteLine("ALLCLN~~~" + allclientList[0]);
 
                     //    MyMap.Pins.Clear();
-                      
+
                     //    buttonhelp.IsVisible = true;
                     //    buttonhelp.IsEnabled = true;
                     //    buttondeliver.IsEnabled = true;
@@ -565,7 +565,7 @@ namespace PULI.Views
                     //        //Console.WriteLine("bday~~" + bday);
                     //        //Console.WriteLine("phone~~" + phone);
                     //        //Console.WriteLine("GPS~~~" + gps);
-                          
+
                     //        // 全部ICON都在map上
                     //        //PinMarker(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps);
                     //        PinMarker2(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps, gender, bday, phone, cellphone);
@@ -745,23 +745,21 @@ namespace PULI.Views
                     //}
                     else // 單純社工(不用打卡)
                     {
-                        //Console.WriteLine("社工~~~~");
+                        Console.WriteLine("社工~~~~");
                         //Console.WriteLine("AUTH" + MainPage.AUTH);
                         allclientList = await web.Get_All_Client(MainPage.token);
-                       // //Console.WriteLine("ALLCLN~~~" + allclientList[0]);
-                      
+                        // //Console.WriteLine("ALLCLN~~~" + allclientList[0]);
+
                         MyMap.Pins.Clear();
                         MyMap.IsEnabled = true;
                         MyMap.IsVisible = true;
-                        buttonhelp.IsVisible = true;
-                        buttonhelp.IsEnabled = true;
+                        //DeliverMap.IsVisible = true;
+                        //DeliverMap.IsEnabled = true;
+                        //buttonhelp.IsVisible = true;
+                        //buttonhelp.IsEnabled = true;
 
                         Dist.IsVisible = false;
                         Dist.IsEnabled = false;
-                        Lat.IsVisible = false;
-                        Lat.IsEnabled = false;
-                        Lot.IsVisible = false;
-                        Lot.IsEnabled = false;
                         ////Console.WriteLine("countAA" + allclientList.Count);
                         for (int i = 0; i < allclientList.Count; i++) // 單純社工身分
                         {
@@ -798,14 +796,24 @@ namespace PULI.Views
                             // 全部ICON都在map上
                             //PinMarker(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps);
                             PinMarker2(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps, gender, bday, phone, cellphone);
-                          
+
                             //punchList[allclientList[i].ct01 + allclientList[i].ct02] = false;
                             //punch_in[allclientList[i].ct01 + allclientList[i].ct02] = false;
                             //punch_out[allclientList[i].ct01 + allclientList[i].ct02] = false;
                             //isform[allclientList[i].ct01 + allclientList[i].ct02] = false;
                             //gomap[allclientList[i].ct01 + allclientList[i].ct02] = false;
                         }
-                        
+                        location = CrossGeolocator.Current;
+                        location.DesiredAccuracy = location_DesiredAccuracy;
+                        position = await location.GetPositionAsync(TimeSpan.FromSeconds(1));
+                        NowLon = position.Longitude;
+                        NowLat = position.Latitude;
+                        //Console.WriteLine("nowlat" + position.Latitude);
+                        //Console.WriteLine("nowlot" + position.Longitude);
+                        //Console.WriteLine("NoewLon~~~" + NowLon);
+                        //Console.WriteLine("NoewLat~~~" + NowLat);
+                        CameraPosition cameraPosition = new CameraPosition(new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude), map_Zoom);
+                        await MyMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
                     }
 
                     //var totalListDone = await web.Get_Daily_Shipment2(MainPage.token);
@@ -841,12 +849,12 @@ namespace PULI.Views
                     //foreach (var dys6  in sortAscendingQuery)
                     //    //Console.WriteLine("dys~~~" + dys6);
                     //shipList = await web.Get_Daily_Shipment2(MainPage.token);
-                   // //Console.WriteLine("QQQQ" + totalList.daily_shipments.Count);
+                    // //Console.WriteLine("QQQQ" + totalList.daily_shipments.Count);
                     ////Console.WriteLine("AAAA" + shipList.ct_name);
 
                     // for社工
-                    
-                    
+
+
 
 
                 }
@@ -882,7 +890,7 @@ namespace PULI.Views
             PinMarker3(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps);
 
         }
-        public async void SetIcon3(int setnum) 
+        public async void SetIcon3(int setnum)
         {
             //Console.WriteLine("AUTH " + MainPage.AUTH);
             //Console.WriteLine("countBB " + totalList.daily_shipments.Count);
@@ -917,14 +925,14 @@ namespace PULI.Views
         //    home = totalListforhelp.daily_shipments[setnum].ct_name + " 的家";
         //    ////Console.WriteLine("HOME" + home);
         //    gps = lat + "," + lot;
-           
+
         //    ////Console.WriteLine("GPS" + gps);
         //    //Address = allclientList[i].ClientAddress;
         //    ////Console.WriteLine("Address" + Address);
         //    DeliverMap.Pins.Clear();
         //    PinMarker(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps);
         //   // PinMarker2(param.PNG_MAP_HOME_ICON, new Xamarin.Forms.GoogleMaps.Position(lat, lot), home, gps, gender, bday, phone);
-            
+
         //}
         private async void buttonhelp_Clicked(object sender, EventArgs e) // 社工身分的社工地圖(有全部案主家)
         {
@@ -937,7 +945,7 @@ namespace PULI.Views
         // 典籍已預約資訊button
         private async void buttondeliver_Clicked(object sender, EventArgs e) // 社工身分的送餐地圖(幫忙送餐)
         {
-            if(MainPage.userList.daily_shipment_nums > 0)
+            if (MainPage.userList.daily_shipment_nums > 0)
             {
                 //Console.WriteLine("delivermap~true~~");
                 DeliverMap.IsVisible = true;
@@ -986,16 +994,22 @@ namespace PULI.Views
         private async Task getLocation2()
         {
             location = CrossGeolocator.Current;
-            location.DesiredAccuracy = location_DesiredAccuracy;
-            position = await location.GetPositionAsync(TimeSpan.FromSeconds(1));
-            NowLon = position.Longitude;
-            NowLat = position.Latitude;
-            //Console.WriteLine("nowlat" + position.Latitude);
-            //Console.WriteLine("nowlot" + position.Longitude);
-            //Console.WriteLine("NoewLon~~~" + NowLon);
-            //Console.WriteLine("NoewLat~~~" + NowLat);
-            CameraPosition cameraPosition = new CameraPosition(new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude), map_Zoom);
-            await MyMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
+            if (location != null)
+            {
+                location.DesiredAccuracy = location_DesiredAccuracy;
+                position = await location.GetPositionAsync(TimeSpan.FromSeconds(5));
+                NowLon = position.Longitude;
+                NowLat = position.Latitude;
+
+                //Console.WriteLine("nowlat" + position.Latitude);
+                //Console.WriteLine("nowlot" + position.Longitude);
+                //Console.WriteLine("NoewLon~~~" + NowLon);
+                //Console.WriteLine("NoewLat~~~" + NowLat);
+                CameraPosition cameraPosition = new CameraPosition(new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude), map_Zoom);
+                await MyMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition)); // 地圖上抓取目前位置
+                await DeliverMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
+            }
+
         }
 
         private async Task getLocation()
@@ -1026,638 +1040,531 @@ namespace PULI.Views
                 //}
                 //if (!isSetView) // 還沒setview
                 //{
-                    location = CrossGeolocator.Current;
+                location = CrossGeolocator.Current;
                 Console.WriteLine("location~~ " + location);
-                    if (location != null)
-                    {
+                if (location != null)
+                {
                     Console.WriteLine("location_in~~~ ");
-                        try
+                    try
+                    {
+                        d = 0;
+                        location.DesiredAccuracy = location_DesiredAccuracy;
+                        position = await location.GetPositionAsync(TimeSpan.FromSeconds(5));
+                        NowLon = position.Longitude;
+                        NowLat = position.Latitude;
+
+                        //Console.WriteLine("nowlat" + position.Latitude);
+                        //Console.WriteLine("nowlot" + position.Longitude);
+                        //Console.WriteLine("NoewLon~~~" + NowLon);
+                        //Console.WriteLine("NoewLat~~~" + NowLat);
+                        CameraPosition cameraPosition = new CameraPosition(new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude), map_Zoom);
+                        await MyMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition)); // 地圖上抓取目前位置
+                        await DeliverMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
+                        //latitude.Text = "Lat" + position.Latitude.ToString();
+                        // //Console.WriteLine("@@LAT@@ " + latitude.Text);
+                        //longitude.Text = "Lon" + position.Longitude.ToString();
+                        ////Console.WriteLine("@@LON@@ " + longitude.Text);
+                        //Console.WriteLine("punchdatabase~~~" + PunchDatabase.GetAccountAsync2().Count());
+                        //Console.WriteLine("punchdatabase22~~~" + PunchDatabase2.GetAccountAsync2().Count());
+                        //isSetView = true;
+                        ////Console.WriteLine("CC" + cList.Count);
+                        ////Console.WriteLine("CC2" + cList2.Count);
+                        // for無網路環境(不會及時跳出打卡成功訊息)
+                        // 偵測到網路
+                        // 先判斷SQLite有無資料
+                        // if有資料判斷將其自動打卡
+                        // 全都打卡完之後將SQLite delete all
+                        if (CrossConnectivity.Current.IsConnected)
                         {
-                            d = 0;
-                            location.DesiredAccuracy = location_DesiredAccuracy;
-                            position = await location.GetPositionAsync(TimeSpan.FromSeconds(5));
-                            NowLon = position.Longitude;
-                            NowLat = position.Latitude;
-
-                            //Console.WriteLine("nowlat" + position.Latitude);
-                            //Console.WriteLine("nowlot" + position.Longitude);
-                            //Console.WriteLine("NoewLon~~~" + NowLon);
-                            //Console.WriteLine("NoewLat~~~" + NowLat);
-                            CameraPosition cameraPosition = new CameraPosition(new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude), map_Zoom);
-                            await MyMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition)); // 地圖上抓取目前位置
-                            await DeliverMap.AnimateCamera(CameraUpdateFactory.NewCameraPosition(cameraPosition));
-                            //latitude.Text = "Lat" + position.Latitude.ToString();
-                           // //Console.WriteLine("@@LAT@@ " + latitude.Text);
-                            //longitude.Text = "Lon" + position.Longitude.ToString();
-                            ////Console.WriteLine("@@LON@@ " + longitude.Text);
-                            //Console.WriteLine("punchdatabase~~~" + PunchDatabase.GetAccountAsync2().Count());
-                            //Console.WriteLine("punchdatabase22~~~" + PunchDatabase2.GetAccountAsync2().Count());
-                            //isSetView = true;
-                            ////Console.WriteLine("CC" + cList.Count);
-                            ////Console.WriteLine("CC2" + cList2.Count);
-                            // for無網路環境(不會及時跳出打卡成功訊息)
-                            // 偵測到網路
-                            // 先判斷SQLite有無資料
-                            // if有資料判斷將其自動打卡
-                            // 全都打卡完之後將SQLite delete all
-                            if (CrossConnectivity.Current.IsConnected)
+                            if (PunchDatabase.GetAccountAsync2().Count() > 0) // 記錄無網路環境打卡的database裡面有資料
                             {
-                                if (PunchDatabase.GetAccountAsync2().Count() > 0) // 記錄無網路環境打卡的database裡面有資料
+                                //Console.WriteLine("RRRRRR~~~~");
+                                //Console.WriteLine("pp~~" + PunchDatabase.GetAccountAsync2().Count());
+                                for (int b = 0; b < PunchDatabase.GetAccountAsync2().Count(); b++)
                                 {
-                                    //Console.WriteLine("RRRRRR~~~~");
-                                    //Console.WriteLine("pp~~" + PunchDatabase.GetAccountAsync2().Count());
-                                    for (int b = 0; b < PunchDatabase.GetAccountAsync2().Count(); b++)
+                                    var c = PunchDatabase.GetAccountAsync(b);
+
+
+                                    foreach (var TempAnsList in c)
                                     {
-                                        var c = PunchDatabase.GetAccountAsync(b);
+                                        //Console.WriteLine("tmpname2222~~~" + TempAnsList.name);
+                                        //Console.WriteLine("token~~" + TempAnsList.token);
+                                        //Console.WriteLine("name~" + TempAnsList.name);
+                                        //Console.WriteLine("ct_s_num~~" + TempAnsList.ct_s_num);
+                                        //Console.WriteLine("sec_s_num~~" + TempAnsList.sec_s_num);
+                                        //Console.WriteLine("mlo_s_num~~" + TempAnsList.mlo_s_num);
+                                        //Console.WriteLine("bn_s_num~~" + TempAnsList.bn_s_num);
+                                        //Console.WriteLine("lat~~" + TempAnsList.latitude);
+                                        //Console.WriteLine("lon~~" + TempAnsList.longitude);
 
-
-                                        foreach (var TempAnsList in c)
+                                        if (TempAnsList.inorout == "in") // 處理簽到
                                         {
-                                            //Console.WriteLine("tmpname2222~~~" + TempAnsList.name);
-                                            //Console.WriteLine("token~~" + TempAnsList.token);
-                                            //Console.WriteLine("name~" + TempAnsList.name);
-                                            //Console.WriteLine("ct_s_num~~" + TempAnsList.ct_s_num);
-                                            //Console.WriteLine("sec_s_num~~" + TempAnsList.sec_s_num);
-                                            //Console.WriteLine("mlo_s_num~~" + TempAnsList.mlo_s_num);
-                                            //Console.WriteLine("bn_s_num~~" + TempAnsList.bn_s_num);
-                                            //Console.WriteLine("lat~~" + TempAnsList.latitude);
-                                            //Console.WriteLine("lon~~" + TempAnsList.longitude);
-                                            
-                                            if (TempAnsList.inorout == "in") // 處理簽到
-                                            {
-                                                //Console.WriteLine("Tmpname~~~" + TempAnsList.name);
-                                                //for(int i = 0; i < tmp_punch_in.Count(); i++)
-                                                //{
-                                                //    //Console.WriteLine("tmp_pun_in~~" + tmp_punch_in);
-                                                //}
-                                                //Console.WriteLine("count~~in~" + name_list_in.Count());
-                                                //if (name_list_in.Count() != total_need_to_serve)
-                                                //{
+                                            //Console.WriteLine("Tmpname~~~" + TempAnsList.name);
+                                            //for(int i = 0; i < tmp_punch_in.Count(); i++)
+                                            //{
+                                            //    //Console.WriteLine("tmp_pun_in~~" + tmp_punch_in);
+                                            //}
+                                            //Console.WriteLine("count~~in~" + name_list_in.Count());
+                                            //if (name_list_in.Count() != total_need_to_serve)
+                                            //{
 
-                                                //}
-                                                //else
-                                                //{
-                                                //    PunchTmp.DeleteAll();
-                                                //    MessagingCenter.Send(this, "Setlist", true);
-                                                //}
-                                                //Console.WriteLine("nameLA~~in~" + TempAnsList, name);
-                                                if (TempAnsList.name != null)
+                                            //}
+                                            //else
+                                            //{
+                                            //    PunchTmp.DeleteAll();
+                                            //    MessagingCenter.Send(this, "Setlist", true);
+                                            //}
+                                            //Console.WriteLine("nameLA~~in~" + TempAnsList, name);
+                                            if (TempAnsList.name != null)
+                                            {
+                                                if (!name_list_in.Contains(TempAnsList.name)) // 判斷還沒處理過這筆無網路打卡
                                                 {
-                                                    if (!name_list_in.Contains(TempAnsList.name)) // 判斷還沒處理過這筆無網路打卡
-                                                    {
-                                                        // 自動簽到
-                                                        bool web_res2 = await web.Save_Punch_In(TempAnsList.token, TempAnsList.ct_s_num, TempAnsList.sec_s_num, TempAnsList.mlo_s_num, TempAnsList.latitude, TempAnsList.longitude);
-                                                        //Console.WriteLine("web_res" + web_res2);
-                                                        if (web_res2 == true)
-                                                        {
-                                                            // 打卡成功
-                                                            name_list_in.Add(TempAnsList.name);
-                                                            //Console.WriteLine("name_list_in~~~" + name_list_in.Count);
-                                                            //name_list_in2.Add(new TmpPunchList
-                                                            //{
-                                                            //   name = TempAnsList.name
-                                                            //});
-
-
-                                                            //Console.WriteLine("TmpInAdd~~~");
-                                                            // //Console.WriteLine("name~~~" + name_list_in2.ElementAt(0));
-                                                            //Console.WriteLine("name_in~~" + name_list_in.Count());
-                                                            //  tmp_punch_in[TempAnsList.name] = true; // 簽到成功
-                                                            // //Console.WriteLine("SQLitepunchin~~~" + tmp_punch_in[TempAnsList.name] + "name " + TempAnsList.name);
-                                                            PunchDatabase.DeleteItem(TempAnsList.ID); // 把那筆刪掉
-                                                                                                      //formin.IsVisible = true;
-                                                                                                      //formin.IsEnabled = true;
-                                                                                                      //await Task.Delay(10000); // 等待30秒
-                                                                                                      //Messager2();
-                                                            PunchTmp.DeleteItem(TempAnsList.ID); // 把那筆刪掉
-                                                            MessagingCenter.Send(this, "Setlist", true); // 更新主頁面的吳網路打卡紀錄
-                                                            //Console.WriteLine("deletein~~~" + TempAnsList.name);
-                                                            //Console.WriteLine("incount111~~~" + PunchDatabase.GetAccountAsync2().Count());
-
-                                                        }
-                                                        else
-                                                        {
-                                                            //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
-                                                            //Console.WriteLine("ASQLite簽到失敗");
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        // 已經處理過的話就直接刪除SQLite中這筆紀錄
-                                                        PunchDatabase.DeleteItem(TempAnsList.ID);
-                                                        PunchTmp.DeleteItem(TempAnsList.ID);
-                                                    }
-                                                }
-                                               
-                                            }
-                                            else // 處理簽退
-                                            {
-                                                //Console.WriteLine("name_list_out~~~" + name_list_out.Count());
-                                                //if (name_list_out.Count() != total_need_to_serve)
-                                                //{
-
-                                                //}
-                                                //else
-                                                //{
-                                                //    PunchTmp2.DeleteAll();
-                                                //    MessagingCenter.Send(this, "Setlist2", true);
-                                                //}
-                                                //Console.WriteLine("nameLA~~out~" + TempAnsList, name);
-                                                if(TempAnsList.name != null)
-                                                {
-                                                    if (!name_list_out.Contains(TempAnsList.name)) // 還沒處理過這筆案主的簽退
-                                                    {
-                                                        // 自動簽退
-                                                        bool web_res2 = await web.Save_Punch_Out(TempAnsList.token, TempAnsList.ct_s_num, TempAnsList.sec_s_num, TempAnsList.mlo_s_num, TempAnsList.latitude, TempAnsList.longitude);
-                                                        //Console.WriteLine("web_res" + web_res2);
-                                                        if (web_res2 == true)
-                                                        {
-                                                            // 打卡成功
-                                                            name_list_out.Add(TempAnsList.name);
-                                                            //Console.WriteLine("name_list_out~~~" + name_list_out.Count);
-                                                            //name_list_out2.Add(new TmpPunchList
-                                                            //{
-                                                            //    name = TempAnsList.name
-                                                            //});
-
-
-                                                            //Console.WriteLine("TmpOutAdd~~~");
-                                                            //Console.WriteLine("name_out~~" + name_list_out.Count());
-                                                            //  tmp_punch_out[TempAnsList.name] = true; // 簽到成功
-                                                            // //Console.WriteLine("SQLitepunchout~~~" + tmp_punch_in[TempAnsList.name] + "name " + TempAnsList.name);
-                                                            PunchDatabase.DeleteItem(TempAnsList.ID); // 把那筆刪掉
-                                                                                                      //formin.IsVisible = true;
-                                                                                                      //formin.IsEnabled = true;
-                                                                                                      //await Task.Delay(10000); // 等待30秒
-                                                                                                      //Messager2();
-
-                                                            PunchTmp2.DeleteItem(TempAnsList.ID);
-                                                            MessagingCenter.Send(this, "Setlist2", true); // 更新主頁面的無網路簽退紀錄
-                                                            //Console.WriteLine("deleteout~~~" + TempAnsList.name);
-                                                            //Console.WriteLine("outcount111~~~" + PunchDatabase.GetAccountAsync2().Count());
-
-
-                                                        }
-                                                        else
-                                                        {
-                                                            //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
-                                                            //Console.WriteLine("ASQLite簽退失敗");
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        // 已經處理過這筆簽退，直接刪除這筆紀錄
-                                                        PunchDatabase.DeleteItem(TempAnsList.ID);
-                                                        PunchTmp2.DeleteItem(TempAnsList.ID);
-                                                    }
-                                                }
-                                               
-                                            }
-                                        }
-                                    }
-                                    //Console.WriteLine("number~~ " + PunchDatabase.GetAccountAsync2().Count());
-                                    if (PunchDatabase.GetAccountAsync2().Count() == 0) // 判斷是否還有未處理的無網路打卡
-                                    {
-                                        //Console.WriteLine("punchtmpSUCESS");
-                                        // 全部刪除，且更新主頁面上的紀錄
-                                        PunchTmp.DeleteAll();
-                                        PunchTmp2.DeleteAll();
-                                        MessagingCenter.Send(this, "Setlist", true);
-                                        //Console.WriteLine("sendsetlist~~~");
-                                        MessagingCenter.Send(this, "Setlist2", true);
-                                        //Console.WriteLine("sendsetlist22~~~");
-
-                                    }
-                                    if(name_list_in.Count() == total_need_to_serve && name_list_out.Count() == total_need_to_serve) // 判斷是否送餐完畢
-                                    {
-                                        DeliverOver = true;
-                                    }
-                                    //if(PunchTmp2.GetAccountAsync().Count() == 0)
-                                    //{
-                                    //    //Console.WriteLine("punchtmp2SUCESS");
-                                    //    PunchTmp2.DeleteAll();
-                                    //    MessagingCenter.Send(this, "Setlist2", true);
-                                    //    //Console.WriteLine("sendsetlist2~~~");
-                                    //}
-                                    //PunchDatabase.DeleteAll();
-                                }
-                               
-                            }
-                            //if (setnum > 0 || setnum == 0)
-                            Console.WriteLine("setnum~~~~" + setnum);
-                        Console.WriteLine("totoal_need_to_serve~~~ " + total_need_to_serve);
-                            if(setnum == 0 || total_need_to_serve > setnum || total_need_to_serve == setnum)
-                            {
-                                Console.WriteLine("setnum~~in~~~");
-                            Console.WriteLine("deliver_over~~ " + DeliverOver);
-                                if (DeliverOver == false)
-                                {
-                                Console.WriteLine("deliver_in~~~ ");
-                                Console.WriteLine("cList2~~~ " + cList2.Count());
-                                    for (int i = 0; i < cList2.Count(); i++)
-                                    {
-                                        //if (homename == cList2[i].ct_name)
-                                        //{
-
-                                        int which = 0;
-                                        
-                                        Console.WriteLine("who1" + cList2[i].ct_name);
-                                        ////Console.WriteLine("punch1" + punchList[cList[i].ct_name]);
-                                        //Console.WriteLine("whoami~~~" + setnum);
-                                        // 算目前使用者位置跟案主家的距離
-                                        /*
-                                         
-                                         */
-                                        px = double.Parse(totalList.daily_shipments[setnum].ct16);
-                                        py = double.Parse(totalList.daily_shipments[setnum].ct17);
-                                        dx = position.Latitude - px > 0 ? position.Latitude - px : px - position.Latitude;
-                                        dy = position.Longitude - py > 0 ? position.Longitude - py : py - position.Longitude;
-                                        d = Math.Sqrt(dx * 110000 * dx * 110000 + dy * 100000 * dy * 100000);
-                                        //Console.WriteLine("d2" + d);
-                                        string d2 = d.ToString();
-                                        Console.WriteLine("@@@@@   " + d2);
-                                        distance.Text = d2;
-                                        Latitude.Text = position.Latitude.ToString();
-                                        Longitude.Text = position.Longitude.ToString();
-                                    Console.WriteLine("lat~~ " + position.Latitude.ToString());
-                                    Console.WriteLine("lot~~~ " + position.Longitude.ToString());
-                                        //foreach (var a in punchList)
-                                        //{
-                                        //    //Console.WriteLine("*****" + a);
-                                        //}
-                                        ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///
-                                        //if(gomap[totalList.daily_shipments[0].ct_name] == false) // 沒導到googlemap過
-                                        //{
-                                        //    if (i == 0) // 第一個案主家
-                                        //    {
-                                        //        gps2 = totalList.daily_shipments[0].ClientLatitude + "," + totalList.daily_shipments[0].ClientLongitude;
-                                        //        string uri = "https://www.google.com.tw/maps/place/" + gps2;
-                                        //        //Console.WriteLine("URI" + uri);
-                                        //        if (await Launcher.CanOpenAsync(uri))
-                                        //        {
-                                        //            await Launcher.OpenAsync(uri);
-                                        //            gomap[totalList.daily_shipments[0].ct_name] = true;
-                                        //        }
-                                        //        else
-                                        //        {
-                                        //            await DisplayAlert(param.SYSYTEM_MESSAGE, param.BROWSER_ERROR_MESSAGE, param.DIALOG_MESSAGE);
-                                        //        }
-                                        //    }
-                                        //}
-                                        ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///
-                                        // //Console.WriteLine("setnum4444~~~~" + setnum);
-                                        ////Console.WriteLine("WHO~~~~" + totalList.daily_shipments[setnum].ct_name);
-                                        ////Console.WriteLine("~~~~" + punchList[totalList.daily_shipments[setnum].ct_name]);
-
-                                        //Console.WriteLine("WHOLAA~~" + totalList.daily_shipments[setnum].ct_name + punchList[totalList.daily_shipments[setnum].ct_name]);
-                                        if (punchList[totalList.daily_shipments[setnum].ct_name] == false) // 先判斷有沒有打卡(簽到+簽退)過
-                                        {
-                                        Console.WriteLine("name~~~ " + cList2[i].ct_name);
-                                        Console.WriteLine("mlo~~~ " + cList2[i].mlo_s_num); 
-                                        Console.WriteLine("who2>>>>>" + totalList.daily_shipments[setnum].ct_name);
-                                            Console.WriteLine("punch2>>>>" + punchList[totalList.daily_shipments[setnum].ct_name]);
-                                            Console.WriteLine("ddddistance~~" + d);
-
-                                            // GPS 簽到
-                                            if (d < 30 && punch_in[totalList.daily_shipments[setnum].ct_name] == false) // 符合簽到距離且尚未簽到過
-                                            {
-                                                punchyesorno[totalList.daily_shipments[setnum].ct_name] = true;
-                                                //Console.WriteLine("who3" + totalList.daily_shipments[setnum].ct_name);
-                                                //Console.WriteLine("punch3" + punchList[totalList.daily_shipments[setnum].ct_name]);
-
-                                                //Console.WriteLine("~~~~~~~" + which);
-                                                //for (int a = 0; a < cList2.Count(); a++)
-                                                //{
-                                                    //Console.WriteLine("in~~~");
-                                                    //Console.WriteLine("cListname~~" + cList2[a].ct_name);
-                                                    ////Console.WriteLine("totalname~~" + totalList.daily_shipments[setnum].ct_name);
-                                                    if (cList2[i].ct_name == totalList.daily_shipments[setnum].ct_name)
-                                                    {
-                                                        which = i;
-                                                        //setName = cList[i].ct_name;
-                                                        // 抓取案主資料
-                                                        setname.Text = cList2[i].ct_name;
-                                                        setname3.Text = totalList.daily_shipments[setnum].ct_name;
-                                                        dys05_type.Text = totalList.daily_shipments[setnum].dys05_type;
-                                                        //Console.WriteLine("dys05~~~ " + dys05_type.Text);
-                                                        sec06.Text = totalList.daily_shipments[setnum].sec06;
-                                                        ct06_telephone.Text = totalList.daily_shipments[setnum].ct06_telephone;
-                                                        dys03.Text = totalList.daily_shipments[setnum].dys03;
-                                                        dys02.Text = totalList.daily_shipments[setnum].dys02;
-                                                        //Console.WriteLine("name1~~" + setname.Text);
-                                                        Clname = cList2[i].ct_name;
-                                                        //Console.WriteLine("name1~~~" + Clname);
-                                                        ////Console.WriteLine("HOME5" + cList[5].ct_name);
-                                                        //string both = questionnaireslist[i].both;
-                                                        //string both2 = questionnaireslist[i].both2;
-                                                        setname2.Text = cList2[i].ct_name;
-                                                        //Console.WriteLine("name2" + setname2.Text);
-                                                        ////Console.WriteLine("setName" + Clname);
-                                                        //setBirthday = totalList.daily_shipments[i].ClientBirthday;
-                                                        ////Console.WriteLine("setBirthday" + setBirthday);
-                                                        //setAddress = totalList.daily_shipments[i].ClientAddress;
-                                                        //setMealName = totalList.daily_shipments[i].MealName;
-                                                        //setclnt_s_num = cList[i].clnt_s_num;
-                                                        ct_s_num = cList2[i].ct_s_num;
-                                                        //Console.WriteLine("setclnt_s_num>>>>" + ct_s_num);
-                                                        //setsrvc_s_num = cList[i].srvc_s_num;
-                                                        sec_s_num = cList2[i].sec_s_num;
-                                                        //Console.WriteLine("setsrvc_s_num" + sec_s_num);
-                                                        //setmealo_s_num = cList[i].mealo_s_num;
-                                                        mlo_s_num = cList2[i].mlo_s_num;  // 訂單s_num(
-                                                        //Console.WriteLine("setmealo_s_num" + mlo_s_num);
-                                                        //setbeacon_s_num = cList[i].beacon_s_num;
-                                                        bn_s_num = cList2[i].bn_s_num; //  打卡鄰近的beancon_s_num(beacon id)
-                                                        //Console.WriteLine("setbeacon_s_num" + setbeacon_s_num);
-                                                        //Console.WriteLine("Lat" + position.Latitude);
-                                                        //Console.WriteLine("Lot" + position.Longitude);
-                                                        //Console.WriteLine("TOKEN" + MainPage.token);
-
-                                                        if (CrossConnectivity.Current.IsConnected) // 有連到網路
-                                                        {
-                                                            // 自動簽到
-                                                            bool web_res = await web.Save_Punch_In(MainPage.token, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
-                                                            //Console.WriteLine("web_res" + web_res);
-                                                            if (web_res == true)
-                                                            {
-                                                                // 打卡成功
-                                                                //Console.WriteLine("name~~~~" + totalList.daily_shipments[setnum].ct_name + punch_in[totalList.daily_shipments[setnum].ct_name]);
-                                                                punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
-                                                                //Console.WriteLine("punchin~~~gps" + punch_in[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
-                                                                //Console.WriteLine("true");
-                                                                //Console.WriteLine("BEE~~ " + BeaconScan.letpunchin);
-                                                                formin_1.IsVisible = true; // 跳出簽到案主家成功訊息
-                                                                formin_1.IsEnabled = true;
-                                                                formin_2.IsVisible = true; // 跳出案主家相關資訊
-                                                                formin_2.IsEnabled = true;
-                                                                await Task.Delay(10000); // 等待30秒
-                                                                Messager2(); // 訊息消失(自動關閉)
-
-                                                                punchinmsg = "簽到成功" + setName + "的家";
-                                                                ////Console.WriteLine("punchinmsg" + punchinmsg);
-                                                                Thread.Sleep(5000); // 等待五秒之後
-                                                                fadeformin(); // 簽到成功訊息自動消失
-                                                            }
-                                                            else
-                                                            {
-                                                                //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
-                                                                //Console.WriteLine("簽到失敗");
-                                                            }
-                                                        }
-                                                        else // 無網路環境下，先將要打卡資料存進SQLite
-                                                        {
-                                                           
-                                                            inorout = "in"; // 簽到
-                                                                            ////Console.WriteLine("");
-                                                                            // 將簽到資訊存進SQLite
-                                                            //bool web_res = await web.Save_Punch_In(MainPage.token, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
-                                                            PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
-                                                            punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
-                                                            PunchTmp.SaveAccountAsync(new PunchTmp // 存進無網路簽到成功的SQLite
-                                                            {
-                                                                name = totalList.daily_shipments[setnum].ct_name, // 案主姓名
-                                                                time = DateTime.Now.ToShortTimeString() // 簽到時間
-                                                            });
-                                                        }
-                                                    }
-                                                //}
-                                            }
-                                            //-------------<<<<<beacon punchin dont delete------>>>>>>>
-                                            ////if (BeaconScan.letpunchin == true && punch_in[totalList.daily_shipments[setnum].ct_name] == false)
-                                            ////{
-                                            ////    if (CrossConnectivity.Current.IsConnected) // 有連到網路
-                                            ////    {
-                                            ////        bool web_res = await web.Beacon_Punch(MainPage.token, BeaconScan.UUID, 1.ToString()); // 簽到bnl02是1 簽退是2
-                                            ////        if (web_res == true)
-                                            ////        {
-                                            ////            // 打卡成功
-                                            ////            //Console.WriteLine("beacon_punch~~~");
-                                            ////            //Console.WriteLine("name~~~~" + totalList.daily_shipments[setnum].ct_name + punch_in[totalList.daily_shipments[setnum].ct_name]);
-                                            ////            punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
-                                            ////            //Console.WriteLine("punchin~~~gps" + punch_in[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
-                                            ////            //Console.WriteLine("true");
-                                            ////            //Console.WriteLine("BEE~~ " + BeaconScan.letpunchin);
-                                            ////            formin_1.IsVisible = true;
-                                            ////            formin_1.IsEnabled = true;
-                                            ////            formin_2.IsVisible = true;
-                                            ////            formin_2.IsEnabled = true;
-                                            ////            await Task.Delay(10000); // 等待30秒
-                                            ////            Messager2();
-
-                                            ////            //punchinmsg = "SUCESS簽到成功in" + setName + "的家";
-                                            ////            ////Console.WriteLine("punchinmsg" + punchinmsg);
-                                            ////            //Thread.Sleep(5000); // 等待五秒之後
-                                            ////            //fadeformin(); // 簽到成功訊息自動消失
-                                            ////        }
-                                            ////        else
-                                            ////        {
-                                            ////            //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
-                                            ////            //Console.WriteLine("簽到失敗");
-                                            ////        }
-                                            ////    }
-                                            ////    else // 無網路環境下，先將要打卡資料存進SQLite
-                                            ////    {
-                                            ////        //Console.WriteLine("nowifiadd_in~~~~");
-                                            ////        //Console.WriteLine("token~~" + MainPage.token);
-                                            ////        //Console.WriteLine("name~" + Clname);
-                                            ////        //Console.WriteLine("ct_s_num~~" + ct_s_num);
-                                            ////        //Console.WriteLine("sec_s_num~~" + sec_s_num);
-                                            ////        //Console.WriteLine("mlo_s_num~~" + mlo_s_num);
-                                            ////        //Console.WriteLine("bn_s_num~~" + bn_s_num);
-                                            ////        //Console.WriteLine("lat~~" + position.Latitude);
-                                            ////        //Console.WriteLine("lon~~" + position.Longitude);
-                                            ////        inorout = "in";
-                                            ////        ////Console.WriteLine("");
-                                            ////        PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
-                                            ////        punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
-                                            ////        PunchTmp.SaveAccountAsync(new PunchTmp
-                                            ////        {
-                                            ////            name = totalList.daily_shipments[setnum].ct_name,
-                                            ////            time = DateTime.Now.ToShortTimeString()
-                                            ////        });
-                                            ////    }
-                                                
-                                            ////}
-                                            // //Console.WriteLine("punchin22~~~" + punch_in[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
-                                            // 符合簽退距離 & 簽到成功 & 尚未簽退過
-                                            if (d > 10 && punch_in[totalList.daily_shipments[setnum].ct_name] == true && punch_out[totalList.daily_shipments[setnum].ct_name] == false)
-                                            {
-                                                
-                                                //Console.WriteLine("ddddistanceout~~~~" + d);
-                                                //Console.WriteLine("PUNCH" + punch_in);
-                                                //Console.WriteLine("EEEE" + MainPage.token);
-
-                                                //qborder.Text = questionnaireslist[0].qbs[0].qb_order;
-                                                //qb01.Text = questionnaireslist[0].qbs[0].qb01;
-                                                //qborder2.Text = questionnaireslist[0].qbs[1].qb_order;
-                                                //qb02.Text = questionnaireslist[0].qbs[1].qb01;
-                                                // //Console.WriteLine("name" + questionnaireslist[0].ct_name);
-                                                ////Console.WriteLine("AAA" + questionnaireslist[0].qbs[0].qb_order);
-                                                ////Console.WriteLine("DDD" + questionnaireslist[0].qbs[0].qb01);
-                                                if (CrossConnectivity.Current.IsConnected) // 有連到網路
-                                                {
-                                                    // 自動簽退
-                                                    bool web_res2 = await web.Save_Punch_Out(MainPage.token, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
-                                                    //Console.WriteLine("web_res2" + web_res2);
+                                                    // 自動簽到
+                                                    bool web_res2 = await web.Save_Punch_In(TempAnsList.token, TempAnsList.ct_s_num, TempAnsList.sec_s_num, TempAnsList.mlo_s_num, TempAnsList.latitude, TempAnsList.longitude);
+                                                    //Console.WriteLine("web_res" + web_res2);
                                                     if (web_res2 == true)
                                                     {
                                                         // 打卡成功
-                                                        //await DisplayAlert("SUCESS", "簽退成功in" + setName + "的家", "OK");
-                                                        // 幾秒之後alert自動消失
-                                                        // 跳出回饋單
-                                                        formout.IsVisible = true; // 跳出簽退成功訊息
-                                                        formout.IsEnabled = true;
-                                                        Form.IsVisible = true; // 跳出問卷
-                                                        Form.IsEnabled = true;
-                                                        punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 簽退成功
-                                                                                                                         //PunchSavepunchnameToSQLite(totalList.daily_shipments[setnum].ct_name);
-                                                        //Console.WriteLine("punchout~~~gps" + punch_out[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
-                                                        //punch_in[cList[i].ct_name] = false;
-                                                        //which = 0;
-                                                        punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true(簽到+簽退成功)
-
-                                                        //Console.WriteLine("punchList~~~" + punchList[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
-                                                        if (isform[totalList.daily_shipments[setnum].ct_name] == false)
-                                                        {
-                                                            setQues(setnum);
-                                                            isform[totalList.daily_shipments[setnum].ct_name] = true; // 紀錄是否跳出問卷
-                                                        }
-                                                        //trylist2.Add(setnum);
-                                                        PunchSavesetnumToSQLite(setnum); // 把送餐進度存進SQLite
-                                                        //Console.WriteLine("setnumadd111~~~" + setnum + "count " + trylist2.Count());
-                                                        num = num + 1;
-                                                        //if (setnum != 0)
+                                                        name_list_in.Add(TempAnsList.name);
+                                                        //Console.WriteLine("name_list_in~~~" + name_list_in.Count);
+                                                        //name_list_in2.Add(new TmpPunchList
                                                         //{
+                                                        //   name = TempAnsList.name
+                                                        //});
 
-                                                        //    setnum = setnum - 1;
-                                                        //    // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                                        //    // 判斷是否打過卡，有的話就跳過
-                                                        //    foreach(var a in punchList)
-                                                        //    {
-                                                        //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                                        //        {
-                                                        //            if(a.Value == true)
-                                                        //            {
-                                                        //                //Console.WriteLine("key~~~" + a.Key);
-                                                        //                PunchSavesetnumToSQLite(setnum);
-                                                        //                setnum = setnum - 1;
 
-                                                        //            }
-
-                                                        //        }
-                                                        //    }
-
-                                                        //}
-                                                        if (setnum == 0 || total_need_to_serve > setnum)
-                                                        {
-
-                                                            setnum = setnum + 1;
-                                                            // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                                            // 判斷是否打過卡，有的話就跳過
-                                                            foreach (var a in punchList)
-                                                            {
-                                                                if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                                                {
-                                                                    if (a.Value == true)
-                                                                    {
-                                                                        //Console.WriteLine("key~~~" + a.Key);
-                                                                        PunchSavesetnumToSQLite(setnum);
-                                                                        setnum = setnum + 1;
-
-                                                                    }
-
-                                                                }
-                                                            }
-
-                                                        } 
-                                                        if (MainPage.AUTH == "4") // 外送員
-                                                        {
-                                                            //Console.WriteLine("setnumLA~~~~" + setnum);
-                                                            if (totalList.daily_shipments.Count() > setnum)
-                                                            {
-                                                                SetIcon(setnum);
-                                                            }
-
-                                                            // //Console.WriteLine("ship_setnum~~" + totalList.daily_shipments[setnum]);
-                                                        }
-                                                        else
-                                                        {
-                                                            SetIcon3(setnum);
-                                                        }
-                                                        //Console.WriteLine("setnumwifipunchout~~~" + setnum);
-
-                                                        ////Console.WriteLine("setnum2222~~~~" + setnum);
-                                                        ////Console.WriteLine("who4" + totalList.daily_shipments[setnum].ct_name);
-                                                        ////Console.WriteLine("punch4" + punchList[totalList.daily_shipments[setnum].ct_name]);
-                                                        ////Console.WriteLine("BEEQQ~~ " + BeaconScan.letpunchout);
-                                                        await Task.Delay(10000); // 等待30秒
-                                                        Messager3(); // 簽退成功訊息消失(自動關閉)
-                                                        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
-                                                        // 自動跳到下一家的google map位置
-
-                                                        //if(gomap[totalList.daily_shipments[setnum].ct_name] == false)
-                                                        //{
-                                                        //    gps2 = totalList.daily_shipments[setnum].ClientLatitude + "," + totalList.daily_shipments[setnum].ClientLongitude;
-                                                        //    string uri = "https://www.google.com.tw/maps/place/" + gps2;
-                                                        //    //Console.WriteLine("URI" + uri);
-                                                        //    if (await Launcher.CanOpenAsync(uri))
-                                                        //    {
-                                                        //        await Launcher.OpenAsync(uri);
-                                                        //        gomap[totalList.daily_shipments[setnum].ct_name] = true;
-                                                        //    }
-                                                        //    else
-                                                        //    {
-                                                        //        await DisplayAlert(param.SYSYTEM_MESSAGE, param.BROWSER_ERROR_MESSAGE, param.DIALOG_MESSAGE);
-                                                        //    }
-                                                        //}
-
-                                                        // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
-                                                        //punchoutmsg = "SUCESS簽退成功in" + setName + "的家";
-                                                        ////Console.WriteLine("punchinmsg" + punchoutmsg);
-                                                        //Thread.Sleep(5000); // 等待五秒之後
-                                                        //fadeformout(); // 簽退成功訊息自動消失
+                                                        //Console.WriteLine("TmpInAdd~~~");
+                                                        // //Console.WriteLine("name~~~" + name_list_in2.ElementAt(0));
+                                                        //Console.WriteLine("name_in~~" + name_list_in.Count());
+                                                        //  tmp_punch_in[TempAnsList.name] = true; // 簽到成功
+                                                        // //Console.WriteLine("SQLitepunchin~~~" + tmp_punch_in[TempAnsList.name] + "name " + TempAnsList.name);
+                                                        PunchDatabase.DeleteItem(TempAnsList.ID); // 把那筆刪掉
+                                                                                                  //formin.IsVisible = true;
+                                                                                                  //formin.IsEnabled = true;
+                                                                                                  //await Task.Delay(10000); // 等待30秒
+                                                                                                  //Messager2();
+                                                        PunchTmp.DeleteItem(TempAnsList.ID); // 把那筆刪掉
+                                                        MessagingCenter.Send(this, "Setlist", true); // 更新主頁面的吳網路打卡紀錄
+                                                                                                     //Console.WriteLine("deletein~~~" + TempAnsList.name);
+                                                                                                     //Console.WriteLine("incount111~~~" + PunchDatabase.GetAccountAsync2().Count());
 
                                                     }
                                                     else
                                                     {
                                                         //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
-                                                        //Console.WriteLine("簽退失敗");
+                                                        //Console.WriteLine("ASQLite簽到失敗");
                                                     }
                                                 }
-                                                else // 無網路環境下簽退
+                                                else
                                                 {
-                                                    //把原本要上船的東西存到SQLite
-                                                    //Console.WriteLine("nowifiadd_out~~~~");
-                                                    //Console.WriteLine("name~" + Clname);
-                                                    //Console.WriteLine("ct_s_num~~" + ct_s_num);
-                                                    //Console.WriteLine("sec_s_num~~" + sec_s_num);
-                                                    //Console.WriteLine("mlo_s_num~~" + mlo_s_num);
-                                                    //Console.WriteLine("bn_s_num~~" + bn_s_num);
-                                                    ////Console.WriteLine("");
-                                                    inorout = "out"; // 簽退
-                                                    // 把要打卡的資料先存回SQLite
-                                                    PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+                                                    // 已經處理過的話就直接刪除SQLite中這筆紀錄
+                                                    PunchDatabase.DeleteItem(TempAnsList.ID);
+                                                    PunchTmp.DeleteItem(TempAnsList.ID);
+                                                }
+                                            }
 
-                                                    punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 謙退成功
-                                                    punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true
-                                                    PunchTmp2.SaveAccountAsync(new PunchTmp2 // 把簽退成功紀錄到無網路簽退的SQLite
+                                        }
+                                        else // 處理簽退
+                                        {
+                                            //Console.WriteLine("name_list_out~~~" + name_list_out.Count());
+                                            //if (name_list_out.Count() != total_need_to_serve)
+                                            //{
+
+                                            //}
+                                            //else
+                                            //{
+                                            //    PunchTmp2.DeleteAll();
+                                            //    MessagingCenter.Send(this, "Setlist2", true);
+                                            //}
+                                            //Console.WriteLine("nameLA~~out~" + TempAnsList, name);
+                                            if (TempAnsList.name != null)
+                                            {
+                                                if (!name_list_out.Contains(TempAnsList.name)) // 還沒處理過這筆案主的簽退
+                                                {
+                                                    // 自動簽退
+                                                    bool web_res2 = await web.Save_Punch_Out(TempAnsList.token, TempAnsList.ct_s_num, TempAnsList.sec_s_num, TempAnsList.mlo_s_num, TempAnsList.latitude, TempAnsList.longitude);
+                                                    //Console.WriteLine("web_res" + web_res2);
+                                                    if (web_res2 == true)
                                                     {
-                                                        name = totalList.daily_shipments[setnum].ct_name, // 姓名
-                                                        time = DateTime.Now.ToShortTimeString() // 時間
+                                                        // 打卡成功
+                                                        name_list_out.Add(TempAnsList.name);
+                                                        //Console.WriteLine("name_list_out~~~" + name_list_out.Count);
+                                                        //name_list_out2.Add(new TmpPunchList
+                                                        //{
+                                                        //    name = TempAnsList.name
+                                                        //});
+
+
+                                                        //Console.WriteLine("TmpOutAdd~~~");
+                                                        //Console.WriteLine("name_out~~" + name_list_out.Count());
+                                                        //  tmp_punch_out[TempAnsList.name] = true; // 簽到成功
+                                                        // //Console.WriteLine("SQLitepunchout~~~" + tmp_punch_in[TempAnsList.name] + "name " + TempAnsList.name);
+                                                        PunchDatabase.DeleteItem(TempAnsList.ID); // 把那筆刪掉
+                                                                                                  //formin.IsVisible = true;
+                                                                                                  //formin.IsEnabled = true;
+                                                                                                  //await Task.Delay(10000); // 等待30秒
+                                                                                                  //Messager2();
+
+                                                        PunchTmp2.DeleteItem(TempAnsList.ID);
+                                                        MessagingCenter.Send(this, "Setlist2", true); // 更新主頁面的無網路簽退紀錄
+                                                                                                      //Console.WriteLine("deleteout~~~" + TempAnsList.name);
+                                                                                                      //Console.WriteLine("outcount111~~~" + PunchDatabase.GetAccountAsync2().Count());
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
+                                                        //Console.WriteLine("ASQLite簽退失敗");
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    // 已經處理過這筆簽退，直接刪除這筆紀錄
+                                                    PunchDatabase.DeleteItem(TempAnsList.ID);
+                                                    PunchTmp2.DeleteItem(TempAnsList.ID);
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+                                //Console.WriteLine("number~~ " + PunchDatabase.GetAccountAsync2().Count());
+                                if (PunchDatabase.GetAccountAsync2().Count() == 0) // 判斷是否還有未處理的無網路打卡
+                                {
+                                    //Console.WriteLine("punchtmpSUCESS");
+                                    // 全部刪除，且更新主頁面上的紀錄
+                                    PunchTmp.DeleteAll();
+                                    PunchTmp2.DeleteAll();
+                                    MessagingCenter.Send(this, "Setlist", true);
+                                    //Console.WriteLine("sendsetlist~~~");
+                                    MessagingCenter.Send(this, "Setlist2", true);
+                                    //Console.WriteLine("sendsetlist22~~~");
+
+                                }
+                                if (name_list_in.Count() == total_need_to_serve && name_list_out.Count() == total_need_to_serve) // 判斷是否送餐完畢
+                                {
+                                    DeliverOver = true;
+                                }
+                                //if(PunchTmp2.GetAccountAsync().Count() == 0)
+                                //{
+                                //    //Console.WriteLine("punchtmp2SUCESS");
+                                //    PunchTmp2.DeleteAll();
+                                //    MessagingCenter.Send(this, "Setlist2", true);
+                                //    //Console.WriteLine("sendsetlist2~~~");
+                                //}
+                                //PunchDatabase.DeleteAll();
+                            }
+
+                        }
+                        //if (setnum > 0 || setnum == 0)
+                        //Console.WriteLine("setnum~~~~" + setnum);
+                        //Console.WriteLine("totoal_need_to_serve~~~ " + total_need_to_serve);
+                        if (setnum == 0 || total_need_to_serve > setnum || total_need_to_serve == setnum)
+                        {
+                            //Console.WriteLine("setnum~~in~~~");
+                            //Console.WriteLine("deliver_over~~ " + DeliverOver);
+                            if (DeliverOver == false)
+                            {
+                                //Console.WriteLine("deliver_in~~~ ");
+                                //Console.WriteLine("cList2~~~ " + cList2.Count());
+                                for (int i = 0; i < cList2.Count(); i++)
+                                {
+                                    //if (homename == cList2[i].ct_name)
+                                    //{
+
+                                    int which = 0;
+
+                                    //Console.WriteLine("who1" + cList2[i].ct_name);
+                                    ////Console.WriteLine("punch1" + punchList[cList[i].ct_name]);
+                                    //Console.WriteLine("whoami~~~" + setnum);
+                                    // 算目前使用者位置跟案主家的距離
+                                    /*
+
+                                     */
+                                    px = double.Parse(totalList.daily_shipments[setnum].ct16);
+                                    py = double.Parse(totalList.daily_shipments[setnum].ct17);
+                                    dx = position.Latitude - px > 0 ? position.Latitude - px : px - position.Latitude;
+                                    dy = position.Longitude - py > 0 ? position.Longitude - py : py - position.Longitude;
+                                    d = Math.Sqrt(dx * 110000 * dx * 110000 + dy * 100000 * dy * 100000);
+                                    //Console.WriteLine("d2" + d);
+                                    string d2 = d.ToString();
+                                    //Console.WriteLine("@@@@@   " + d2);
+                                    distance.Text = d2;
+                                    Latitude.Text = position.Latitude.ToString();
+                                    Longitude.Text = position.Longitude.ToString();
+                                    //Console.WriteLine("lat~~ " + position.Latitude.ToString());
+                                    //Console.WriteLine("lot~~~ " + position.Longitude.ToString());
+                                    //foreach (var a in punchList)
+                                    //{
+                                    //    //Console.WriteLine("*****" + a);
+                                    //}
+                                    ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///
+                                    //if(gomap[totalList.daily_shipments[0].ct_name] == false) // 沒導到googlemap過
+                                    //{
+                                    //    if (i == 0) // 第一個案主家
+                                    //    {
+                                    //        gps2 = totalList.daily_shipments[0].ClientLatitude + "," + totalList.daily_shipments[0].ClientLongitude;
+                                    //        string uri = "https://www.google.com.tw/maps/place/" + gps2;
+                                    //        //Console.WriteLine("URI" + uri);
+                                    //        if (await Launcher.CanOpenAsync(uri))
+                                    //        {
+                                    //            await Launcher.OpenAsync(uri);
+                                    //            gomap[totalList.daily_shipments[0].ct_name] = true;
+                                    //        }
+                                    //        else
+                                    //        {
+                                    //            await DisplayAlert(param.SYSYTEM_MESSAGE, param.BROWSER_ERROR_MESSAGE, param.DIALOG_MESSAGE);
+                                    //        }
+                                    //    }
+                                    //}
+                                    ////~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~///
+                                    // //Console.WriteLine("setnum4444~~~~" + setnum);
+                                    ////Console.WriteLine("WHO~~~~" + totalList.daily_shipments[setnum].ct_name);
+                                    ////Console.WriteLine("~~~~" + punchList[totalList.daily_shipments[setnum].ct_name]);
+
+                                    //Console.WriteLine("WHOLAA~~" + totalList.daily_shipments[setnum].ct_name + punchList[totalList.daily_shipments[setnum].ct_name]);
+                                    if (punchList[totalList.daily_shipments[setnum].ct_name] == false) // 先判斷有沒有打卡(簽到+簽退)過
+                                    {
+                                        //Console.WriteLine("name~~~ " + cList2[i].ct_name);
+                                        //Console.WriteLine("mlo~~~ " + cList2[i].mlo_s_num); 
+                                        //Console.WriteLine("who2>>>>>" + totalList.daily_shipments[setnum].ct_name);
+                                        //Console.WriteLine("punch2>>>>" + punchList[totalList.daily_shipments[setnum].ct_name]);
+                                        //Console.WriteLine("ddddistance~~" + d);
+
+                                        // GPS 簽到
+                                        if (d < 30 && punch_in[totalList.daily_shipments[setnum].ct_name] == false) // 符合簽到距離且尚未簽到過
+                                        {
+                                            punchyesorno[totalList.daily_shipments[setnum].ct_name] = true;
+                                            //Console.WriteLine("who3" + totalList.daily_shipments[setnum].ct_name);
+                                            //Console.WriteLine("punch3" + punchList[totalList.daily_shipments[setnum].ct_name]);
+
+                                            //Console.WriteLine("~~~~~~~" + which);
+                                            //for (int a = 0; a < cList2.Count(); a++)
+                                            //{
+                                            //Console.WriteLine("in~~~");
+                                            //Console.WriteLine("cListname~~" + cList2[a].ct_name);
+                                            ////Console.WriteLine("totalname~~" + totalList.daily_shipments[setnum].ct_name);
+                                            if (cList2[i].ct_name == totalList.daily_shipments[setnum].ct_name)
+                                            {
+                                                which = i;
+                                                //setName = cList[i].ct_name;
+                                                // 抓取案主資料
+                                                setname.Text = cList2[i].ct_name;
+                                                setname3.Text = totalList.daily_shipments[setnum].ct_name;
+                                                dys05_type.Text = totalList.daily_shipments[setnum].dys05_type;
+                                                //Console.WriteLine("dys05~~~ " + dys05_type.Text);
+                                                sec06.Text = totalList.daily_shipments[setnum].sec06;
+                                                ct06_telephone.Text = totalList.daily_shipments[setnum].ct06_telephone;
+                                                dys03.Text = totalList.daily_shipments[setnum].dys03;
+                                                dys02.Text = totalList.daily_shipments[setnum].dys02;
+                                                //Console.WriteLine("name1~~" + setname.Text);
+                                                Clname = cList2[i].ct_name;
+                                                //Console.WriteLine("name1~~~" + Clname);
+                                                ////Console.WriteLine("HOME5" + cList[5].ct_name);
+                                                //string both = questionnaireslist[i].both;
+                                                //string both2 = questionnaireslist[i].both2;
+                                                setname2.Text = cList2[i].ct_name;
+                                                //Console.WriteLine("name2" + setname2.Text);
+                                                ////Console.WriteLine("setName" + Clname);
+                                                //setBirthday = totalList.daily_shipments[i].ClientBirthday;
+                                                ////Console.WriteLine("setBirthday" + setBirthday);
+                                                //setAddress = totalList.daily_shipments[i].ClientAddress;
+                                                //setMealName = totalList.daily_shipments[i].MealName;
+                                                //setclnt_s_num = cList[i].clnt_s_num;
+                                                ct_s_num = cList2[i].ct_s_num;
+                                                //Console.WriteLine("setclnt_s_num>>>>" + ct_s_num);
+                                                //setsrvc_s_num = cList[i].srvc_s_num;
+                                                sec_s_num = cList2[i].sec_s_num;
+                                                //Console.WriteLine("setsrvc_s_num" + sec_s_num);
+                                                //setmealo_s_num = cList[i].mealo_s_num;
+                                                mlo_s_num = cList2[i].mlo_s_num;  // 訂單s_num(
+                                                                                  //Console.WriteLine("setmealo_s_num" + mlo_s_num);
+                                                                                  //setbeacon_s_num = cList[i].beacon_s_num;
+                                                bn_s_num = cList2[i].bn_s_num; //  打卡鄰近的beancon_s_num(beacon id)
+                                                                               //Console.WriteLine("setbeacon_s_num" + setbeacon_s_num);
+                                                                               //Console.WriteLine("Lat" + position.Latitude);
+                                                                               //Console.WriteLine("Lot" + position.Longitude);
+                                                                               //Console.WriteLine("TOKEN" + MainPage.token);
+
+                                                if (CrossConnectivity.Current.IsConnected) // 有連到網路
+                                                {
+                                                    // 自動簽到
+                                                    bool web_res = await web.Save_Punch_In(MainPage.token, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+                                                    //Console.WriteLine("web_res" + web_res);
+                                                    if (web_res == true)
+                                                    {
+                                                        // 打卡成功
+                                                        //Console.WriteLine("name~~~~" + totalList.daily_shipments[setnum].ct_name + punch_in[totalList.daily_shipments[setnum].ct_name]);
+                                                        punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
+                                                                                                                    //Console.WriteLine("punchin~~~gps" + punch_in[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
+                                                                                                                    //Console.WriteLine("true");
+                                                                                                                    //Console.WriteLine("BEE~~ " + BeaconScan.letpunchin);
+                                                        formin_1.IsVisible = true; // 跳出簽到案主家成功訊息
+                                                        formin_1.IsEnabled = true;
+                                                        formin_2.IsVisible = true; // 跳出案主家相關資訊
+                                                        formin_2.IsEnabled = true;
+                                                        await Task.Delay(10000); // 等待30秒
+                                                        Messager2(); // 訊息消失(自動關閉)
+
+                                                        punchinmsg = "簽到成功" + setName + "的家";
+                                                        ////Console.WriteLine("punchinmsg" + punchinmsg);
+                                                        Thread.Sleep(5000); // 等待五秒之後
+                                                        fadeformin(); // 簽到成功訊息自動消失
+                                                    }
+                                                    else
+                                                    {
+                                                        //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
+                                                        //Console.WriteLine("簽到失敗");
+                                                    }
+                                                }
+                                                else // 無網路環境下，先將要打卡資料存進SQLite
+                                                {
+
+                                                    inorout = "in"; // 簽到
+                                                                    ////Console.WriteLine("");
+                                                                    // 將簽到資訊存進SQLite
+                                                                    //bool web_res = await web.Save_Punch_In(MainPage.token, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+                                                    PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+                                                    punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
+                                                    PunchTmp.SaveAccountAsync(new PunchTmp // 存進無網路簽到成功的SQLite
+                                                    {
+                                                        name = totalList.daily_shipments[setnum].ct_name, // 案主姓名
+                                                        time = DateTime.Now.ToShortTimeString() // 簽到時間
                                                     });
-                                                    PunchSavesetnumToSQLite(setnum); // 紀錄送餐進度
+                                                }
+                                            }
+                                            //}
+                                        }
+                                        //-------------<<<<<beacon punchin dont delete------>>>>>>>
+                                        ////if (BeaconScan.letpunchin == true && punch_in[totalList.daily_shipments[setnum].ct_name] == false)
+                                        ////{
+                                        ////    if (CrossConnectivity.Current.IsConnected) // 有連到網路
+                                        ////    {
+                                        ////        bool web_res = await web.Beacon_Punch(MainPage.token, BeaconScan.UUID, 1.ToString()); // 簽到bnl02是1 簽退是2
+                                        ////        if (web_res == true)
+                                        ////        {
+                                        ////            // 打卡成功
+                                        ////            //Console.WriteLine("beacon_punch~~~");
+                                        ////            //Console.WriteLine("name~~~~" + totalList.daily_shipments[setnum].ct_name + punch_in[totalList.daily_shipments[setnum].ct_name]);
+                                        ////            punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
+                                        ////            //Console.WriteLine("punchin~~~gps" + punch_in[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
+                                        ////            //Console.WriteLine("true");
+                                        ////            //Console.WriteLine("BEE~~ " + BeaconScan.letpunchin);
+                                        ////            formin_1.IsVisible = true;
+                                        ////            formin_1.IsEnabled = true;
+                                        ////            formin_2.IsVisible = true;
+                                        ////            formin_2.IsEnabled = true;
+                                        ////            await Task.Delay(10000); // 等待30秒
+                                        ////            Messager2();
+
+                                        ////            //punchinmsg = "SUCESS簽到成功in" + setName + "的家";
+                                        ////            ////Console.WriteLine("punchinmsg" + punchinmsg);
+                                        ////            //Thread.Sleep(5000); // 等待五秒之後
+                                        ////            //fadeformin(); // 簽到成功訊息自動消失
+                                        ////        }
+                                        ////        else
+                                        ////        {
+                                        ////            //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
+                                        ////            //Console.WriteLine("簽到失敗");
+                                        ////        }
+                                        ////    }
+                                        ////    else // 無網路環境下，先將要打卡資料存進SQLite
+                                        ////    {
+                                        ////        //Console.WriteLine("nowifiadd_in~~~~");
+                                        ////        //Console.WriteLine("token~~" + MainPage.token);
+                                        ////        //Console.WriteLine("name~" + Clname);
+                                        ////        //Console.WriteLine("ct_s_num~~" + ct_s_num);
+                                        ////        //Console.WriteLine("sec_s_num~~" + sec_s_num);
+                                        ////        //Console.WriteLine("mlo_s_num~~" + mlo_s_num);
+                                        ////        //Console.WriteLine("bn_s_num~~" + bn_s_num);
+                                        ////        //Console.WriteLine("lat~~" + position.Latitude);
+                                        ////        //Console.WriteLine("lon~~" + position.Longitude);
+                                        ////        inorout = "in";
+                                        ////        ////Console.WriteLine("");
+                                        ////        PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+                                        ////        punch_in[totalList.daily_shipments[setnum].ct_name] = true; // 簽到成功
+                                        ////        PunchTmp.SaveAccountAsync(new PunchTmp
+                                        ////        {
+                                        ////            name = totalList.daily_shipments[setnum].ct_name,
+                                        ////            time = DateTime.Now.ToShortTimeString()
+                                        ////        });
+                                        ////    }
+
+                                        ////}
+                                        // //Console.WriteLine("punchin22~~~" + punch_in[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
+                                        // 符合簽退距離 & 簽到成功 & 尚未簽退過
+                                        if (d > 10 && punch_in[totalList.daily_shipments[setnum].ct_name] == true && punch_out[totalList.daily_shipments[setnum].ct_name] == false)
+                                        {
+
+                                            //Console.WriteLine("ddddistanceout~~~~" + d);
+                                            //Console.WriteLine("PUNCH" + punch_in);
+                                            //Console.WriteLine("EEEE" + MainPage.token);
+
+                                            //qborder.Text = questionnaireslist[0].qbs[0].qb_order;
+                                            //qb01.Text = questionnaireslist[0].qbs[0].qb01;
+                                            //qborder2.Text = questionnaireslist[0].qbs[1].qb_order;
+                                            //qb02.Text = questionnaireslist[0].qbs[1].qb01;
+                                            // //Console.WriteLine("name" + questionnaireslist[0].ct_name);
+                                            ////Console.WriteLine("AAA" + questionnaireslist[0].qbs[0].qb_order);
+                                            ////Console.WriteLine("DDD" + questionnaireslist[0].qbs[0].qb01);
+                                            if (CrossConnectivity.Current.IsConnected) // 有連到網路
+                                            {
+                                                // 自動簽退
+                                                bool web_res2 = await web.Save_Punch_Out(MainPage.token, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+                                                //Console.WriteLine("web_res2" + web_res2);
+                                                if (web_res2 == true)
+                                                {
+                                                    // 打卡成功
+                                                    //await DisplayAlert("SUCESS", "簽退成功in" + setName + "的家", "OK");
+                                                    // 幾秒之後alert自動消失
+                                                    // 跳出回饋單
+                                                    formout.IsVisible = true; // 跳出簽退成功訊息
+                                                    formout.IsEnabled = true;
+                                                    Form.IsVisible = true; // 跳出問卷
+                                                    Form.IsEnabled = true;
+                                                    punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 簽退成功
+                                                                                                                  //PunchSavepunchnameToSQLite(totalList.daily_shipments[setnum].ct_name);
+                                                                                                                  //Console.WriteLine("punchout~~~gps" + punch_out[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
+                                                                                                                  //punch_in[cList[i].ct_name] = false;
+                                                                                                                  //which = 0;
+                                                    punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true(簽到+簽退成功)
+
+                                                    //Console.WriteLine("punchList~~~" + punchList[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
+                                                    if (isform[totalList.daily_shipments[setnum].ct_name] == false)
+                                                    {
+                                                        try
+                                                        {
+                                                            if (questionnaireslist != null)
+                                                            {
+                                                                if (questionnaireslist.Count != 0)
+                                                                {
+                                                                    setQues(setnum);
+                                                                    isform[totalList.daily_shipments[setnum].ct_name] = true; // 紀錄是否跳出問卷
+                                                                }
+
+                                                            }
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            DisplayAlert("系統訊息", "Error : deliver_mapview_questionnairelist_null", "ok");
+                                                        }
+                                                    }
                                                     //trylist2.Add(setnum);
-                                                    //Console.WriteLine("setnumadd22~~~" + setnum + "count " + trylist2.Count());
+                                                    PunchSavesetnumToSQLite(setnum); // 把送餐進度存進SQLite
+                                                                                     //Console.WriteLine("setnumadd111~~~" + setnum + "count " + trylist2.Count());
+                                                    num = num + 1;
                                                     //if (setnum != 0)
                                                     //{
+
                                                     //    setnum = setnum - 1;
                                                     //    // for該案主同時有兩張單的狀況(只需要打卡一次)
                                                     //    // 判斷是否打過卡，有的話就跳過
-                                                    //    foreach (var a in punchList)
+                                                    //    foreach(var a in punchList)
                                                     //    {
                                                     //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
                                                     //        {
-                                                    //            if (a.Value == true)
+                                                    //            if(a.Value == true)
                                                     //            {
                                                     //                //Console.WriteLine("key~~~" + a.Key);
                                                     //                PunchSavesetnumToSQLite(setnum);
@@ -1667,6 +1574,7 @@ namespace PULI.Views
 
                                                     //        }
                                                     //    }
+
                                                     //}
                                                     if (setnum == 0 || total_need_to_serve > setnum)
                                                     {
@@ -1690,407 +1598,527 @@ namespace PULI.Views
                                                         }
 
                                                     }
-                                                    if (MainPage.AUTH == "4")
+                                                    if (MainPage.AUTH == "4") // 外送員
                                                     {
+                                                        //Console.WriteLine("setnumLA~~~~" + setnum);
                                                         if (totalList.daily_shipments.Count() > setnum)
                                                         {
                                                             SetIcon(setnum);
                                                         }
 
+                                                        // //Console.WriteLine("ship_setnum~~" + totalList.daily_shipments[setnum]);
                                                     }
                                                     else
                                                     {
                                                         SetIcon3(setnum);
                                                     }
-                                                    //Console.WriteLine("setnumnowifipunchout~~~" + setnum);
+                                                    //Console.WriteLine("setnumwifipunchout~~~" + setnum);
+
+                                                    ////Console.WriteLine("setnum2222~~~~" + setnum);
+                                                    ////Console.WriteLine("who4" + totalList.daily_shipments[setnum].ct_name);
+                                                    ////Console.WriteLine("punch4" + punchList[totalList.daily_shipments[setnum].ct_name]);
+                                                    ////Console.WriteLine("BEEQQ~~ " + BeaconScan.letpunchout);
+                                                    await Task.Delay(10000); // 等待30秒
+                                                    Messager3(); // 簽退成功訊息消失(自動關閉)
+                                                                 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
+                                                                 // 自動跳到下一家的google map位置
+
+                                                    //if(gomap[totalList.daily_shipments[setnum].ct_name] == false)
+                                                    //{
+                                                    //    gps2 = totalList.daily_shipments[setnum].ClientLatitude + "," + totalList.daily_shipments[setnum].ClientLongitude;
+                                                    //    string uri = "https://www.google.com.tw/maps/place/" + gps2;
+                                                    //    //Console.WriteLine("URI" + uri);
+                                                    //    if (await Launcher.CanOpenAsync(uri))
+                                                    //    {
+                                                    //        await Launcher.OpenAsync(uri);
+                                                    //        gomap[totalList.daily_shipments[setnum].ct_name] = true;
+                                                    //    }
+                                                    //    else
+                                                    //    {
+                                                    //        await DisplayAlert(param.SYSYTEM_MESSAGE, param.BROWSER_ERROR_MESSAGE, param.DIALOG_MESSAGE);
+                                                    //    }
+                                                    //}
+
+                                                    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
+                                                    //punchoutmsg = "SUCESS簽退成功in" + setName + "的家";
+                                                    ////Console.WriteLine("punchinmsg" + punchoutmsg);
+                                                    //Thread.Sleep(5000); // 等待五秒之後
+                                                    //fadeformout(); // 簽退成功訊息自動消失
 
                                                 }
-                                            }
-                                            //if (BeaconScan.letpunchout == true && punch_in[totalList.daily_shipments[setnum].ct_name] == true && punch_out[totalList.daily_shipments[setnum].ct_name] == false)
-                                            //{
-                                            //    if (CrossConnectivity.Current.IsConnected) // 有連到網路
-                                            //    {
-                                            //        bool web_res2 = await web.Beacon_Punch(MainPage.token, BeaconScan.UUID, 1.ToString()); // 簽到bnl02是1 簽退是2
-                                            //        if (web_res2 == true)
-                                            //        {
-                                            //            // 打卡成功
-                                            //            //await DisplayAlert("SUCESS", "簽退成功in" + setName + "的家", "OK");
-                                            //            // 幾秒之後alert自動消失
-                                            //            // 跳出回饋單
-                                            //            formout.IsVisible = true;
-                                            //            formout.IsEnabled = true;
-                                            //            Form.IsVisible = true;
-                                            //            Form.IsEnabled = true;
-                                            //            punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 謙退成功
-                                            //                                                                             //PunchSavepunchnameToSQLite(totalList.daily_shipments[setnum].ct_name);
-                                            //            //Console.WriteLine("punchout~~~gps" + punch_out[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
-                                            //            //punch_in[cList[i].ct_name] = false;
-                                            //            //which = 0;
-                                            //            punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true
-
-                                            //            //Console.WriteLine("punchList~~~" + punchList[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
-                                            //            if (isform[totalList.daily_shipments[setnum].ct_name] == false)
-                                            //            {
-                                            //                setQues(setnum);
-                                            //                isform[totalList.daily_shipments[setnum].ct_name] = true;
-                                            //            }
-                                            //            //trylist2.Add(setnum);
-                                            //            PunchSavesetnumToSQLite(setnum);
-                                            //            //Console.WriteLine("setnumadd111~~~" + setnum + "count " + trylist2.Count());
-                                            //            num = num + 1;
-                                            //            //if (setnum != 0)
-                                            //            //{
-
-                                            //            //    setnum = setnum - 1;
-                                            //            //    // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                            //            //    // 判斷是否打過卡，有的話就跳過
-                                            //            //    foreach(var a in punchList)
-                                            //            //    {
-                                            //            //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                            //            //        {
-                                            //            //            if(a.Value == true)
-                                            //            //            {
-                                            //            //                //Console.WriteLine("key~~~" + a.Key);
-                                            //            //                PunchSavesetnumToSQLite(setnum);
-                                            //            //                setnum = setnum - 1;
-
-                                            //            //            }
-
-                                            //            //        }
-                                            //            //    }
-
-                                            //            //}
-                                            //            if (setnum == 0 || total_need_to_serve > setnum)
-                                            //            {
-
-                                            //                setnum = setnum + 1;
-                                            //                // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                            //                // 判斷是否打過卡，有的話就跳過
-                                            //                foreach (var a in punchList)
-                                            //                {
-                                            //                    if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                            //                    {
-                                            //                        if (a.Value == true)
-                                            //                        {
-                                            //                            //Console.WriteLine("key~~~" + a.Key);
-                                            //                            PunchSavesetnumToSQLite(setnum);
-                                            //                            setnum = setnum + 1;
-
-                                            //                        }
-
-                                            //                    }
-                                            //                }
-
-                                            //            }
-                                            //            if (MainPage.AUTH == "4")
-                                            //            {
-                                            //                //Console.WriteLine("setnumLA~~~~" + setnum);
-                                            //                if (totalList.daily_shipments.Count() > setnum)
-                                            //                {
-                                            //                    SetIcon(setnum);
-                                            //                }
-
-                                            //                // //Console.WriteLine("ship_setnum~~" + totalList.daily_shipments[setnum]);
-                                            //            }
-                                            //            else
-                                            //            {
-                                            //                SetIcon3(setnum);
-                                            //            }
-                                            //            //Console.WriteLine("setnumwifipunchout~~~" + setnum);
-
-                                            //            ////Console.WriteLine("setnum2222~~~~" + setnum);
-                                            //            ////Console.WriteLine("who4" + totalList.daily_shipments[setnum].ct_name);
-                                            //            ////Console.WriteLine("punch4" + punchList[totalList.daily_shipments[setnum].ct_name]);
-                                            //            ////Console.WriteLine("BEEQQ~~ " + BeaconScan.letpunchout);
-                                            //            await Task.Delay(10000); // 30秒
-                                            //            Messager3();
-                                            //            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
-                                            //            // 自動跳到下一家的google map位置
-
-                                            //            //if(gomap[totalList.daily_shipments[setnum].ct_name] == false)
-                                            //            //{
-                                            //            //    gps2 = totalList.daily_shipments[setnum].ClientLatitude + "," + totalList.daily_shipments[setnum].ClientLongitude;
-                                            //            //    string uri = "https://www.google.com.tw/maps/place/" + gps2;
-                                            //            //    //Console.WriteLine("URI" + uri);
-                                            //            //    if (await Launcher.CanOpenAsync(uri))
-                                            //            //    {
-                                            //            //        await Launcher.OpenAsync(uri);
-                                            //            //        gomap[totalList.daily_shipments[setnum].ct_name] = true;
-                                            //            //    }
-                                            //            //    else
-                                            //            //    {
-                                            //            //        await DisplayAlert(param.SYSYTEM_MESSAGE, param.BROWSER_ERROR_MESSAGE, param.DIALOG_MESSAGE);
-                                            //            //    }
-                                            //            //}
-
-                                            //            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
-                                            //            //punchoutmsg = "SUCESS簽退成功in" + setName + "的家";
-                                            //            ////Console.WriteLine("punchinmsg" + punchoutmsg);
-                                            //            //Thread.Sleep(5000); // 等待五秒之後
-                                            //            //fadeformout(); // 簽退成功訊息自動消失
-
-                                            //        }
-                                            //        else
-                                            //        {
-                                            //            //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
-                                            //            //Console.WriteLine("簽退失敗");
-                                            //        }
-                                            //    }
-                                            //    else // 無網路環境下，先將要打卡資料存進SQLite
-                                            //    {
-                                            //        //Console.WriteLine("nowifiadd_out~~~~");
-                                            //        //Console.WriteLine("name~" + Clname);
-                                            //        //Console.WriteLine("ct_s_num~~" + ct_s_num);
-                                            //        //Console.WriteLine("sec_s_num~~" + sec_s_num);
-                                            //        //Console.WriteLine("mlo_s_num~~" + mlo_s_num);
-                                            //        //Console.WriteLine("bn_s_num~~" + bn_s_num);
-                                            //        ////Console.WriteLine("");
-                                            //        inorout = "out";
-                                            //        PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
-
-                                            //        punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 謙退成功
-                                            //        punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true
-                                            //        PunchTmp2.SaveAccountAsync(new PunchTmp2
-                                            //        {
-                                            //            name = totalList.daily_shipments[setnum].ct_name,
-                                            //            time = DateTime.Now.ToShortTimeString()
-                                            //        });
-                                            //        PunchSavesetnumToSQLite(setnum);
-                                            //        trylist2.Add(setnum);
-                                            //        //Console.WriteLine("setnumadd22~~~" + setnum + "count " + trylist2.Count());
-                                            //        //if (setnum != 0)
-                                            //        //{
-                                            //        //    setnum = setnum - 1;
-                                            //        //    // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                            //        //    // 判斷是否打過卡，有的話就跳過
-                                            //        //    foreach (var a in punchList)
-                                            //        //    {
-                                            //        //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                            //        //        {
-                                            //        //            if (a.Value == true)
-                                            //        //            {
-                                            //        //                //Console.WriteLine("key~~~" + a.Key);
-                                            //        //                PunchSavesetnumToSQLite(setnum);
-                                            //        //                setnum = setnum - 1;
-
-                                            //        //            }
-
-                                            //        //        }
-                                            //        //    }
-                                            //        //}
-                                            //        if (setnum == 0 || total_need_to_serve > setnum)
-                                            //        {
-
-                                            //            setnum = setnum + 1;
-                                            //            // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                            //            // 判斷是否打過卡，有的話就跳過
-                                            //            foreach (var a in punchList)
-                                            //            {
-                                            //                if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                            //                {
-                                            //                    if (a.Value == true)
-                                            //                    {
-                                            //                        //Console.WriteLine("key~~~" + a.Key);
-                                            //                        PunchSavesetnumToSQLite(setnum);
-                                            //                        setnum = setnum + 1;
-
-                                            //                    }
-
-                                            //                }
-                                            //            }
-
-                                            //        }
-                                            //        if (MainPage.AUTH == "4")
-                                            //        {
-                                            //            if (totalList.daily_shipments.Count() > setnum)
-                                            //            {
-                                            //                SetIcon(setnum);
-                                            //            }
-
-                                            //        }
-                                            //        else
-                                            //        {
-                                            //            SetIcon3(setnum);
-                                            //        }
-                                                    
-                                            //    }
-                                                
-                                            //}
-                                            if (setnum == 0 || total_need_to_serve > setnum)
-                                            {
-                                                if (punchyesorno[totalList.daily_shipments[setnum].ct_name] == true) // 先確定是有進入判斷，而不是尚未進入判斷
+                                                else
                                                 {
-                                                    // 簽到失敗導致無法簽退，因此簽退也失敗，且已經送完這個案主(遠離案主家)(目前設距離>50m)
-                                                    // 必須讓他繼續跳到下一個案主家進行判斷
-                                                    if (d > 50 && punch_in[totalList.daily_shipments[setnum].ct_name] == false) // 簽到失敗且簽退失敗，距離大於10(遠離案主家)
+                                                    //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
+                                                    //Console.WriteLine("簽退失敗");
+                                                }
+                                            }
+                                            else // 無網路環境下簽退
+                                            {
+                                                //把原本要上船的東西存到SQLite
+                                                //Console.WriteLine("nowifiadd_out~~~~");
+                                                //Console.WriteLine("name~" + Clname);
+                                                //Console.WriteLine("ct_s_num~~" + ct_s_num);
+                                                //Console.WriteLine("sec_s_num~~" + sec_s_num);
+                                                //Console.WriteLine("mlo_s_num~~" + mlo_s_num);
+                                                //Console.WriteLine("bn_s_num~~" + bn_s_num);
+                                                ////Console.WriteLine("");
+                                                inorout = "out"; // 簽退
+                                                                 // 把要打卡的資料先存回SQLite
+                                                PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+
+                                                punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 謙退成功
+                                                punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true
+                                                PunchTmp2.SaveAccountAsync(new PunchTmp2 // 把簽退成功紀錄到無網路簽退的SQLite
+                                                {
+                                                    name = totalList.daily_shipments[setnum].ct_name, // 姓名
+                                                    time = DateTime.Now.ToShortTimeString() // 時間
+                                                });
+                                                PunchSavesetnumToSQLite(setnum); // 紀錄送餐進度
+                                                                                 //trylist2.Add(setnum);
+                                                                                 //Console.WriteLine("setnumadd22~~~" + setnum + "count " + trylist2.Count());
+                                                                                 //if (setnum != 0)
+                                                                                 //{
+                                                                                 //    setnum = setnum - 1;
+                                                                                 //    // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                                                                 //    // 判斷是否打過卡，有的話就跳過
+                                                                                 //    foreach (var a in punchList)
+                                                                                 //    {
+                                                                                 //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                                                                 //        {
+                                                                                 //            if (a.Value == true)
+                                                                                 //            {
+                                                                                 //                //Console.WriteLine("key~~~" + a.Key);
+                                                                                 //                PunchSavesetnumToSQLite(setnum);
+                                                                                 //                setnum = setnum - 1;
+
+                                                //            }
+
+                                                //        }
+                                                //    }
+                                                //}
+                                                if (setnum == 0 || total_need_to_serve > setnum)
+                                                {
+
+                                                    setnum = setnum + 1;
+                                                    // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                                    // 判斷是否打過卡，有的話就跳過
+                                                    foreach (var a in punchList)
                                                     {
-                                                        PunchSavesetnumToSQLite(setnum);
-                                                        //Console.WriteLine("setnum~~1~~ " + setnum);
-                                                        //trylist2.Add(setnum);
-                                                        //Console.WriteLine("setnumadd333~~~" + setnum + "count " + trylist2.Count());
-                                                        //if (setnum != 0)
-                                                        //{
-                                                        //    setnum = setnum - 1;
-                                                        //    //Console.WriteLine("setnum~~2~~ " + setnum);
-                                                        //    // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                                        //    // 判斷是否打過卡，有的話就跳過
-                                                        //    foreach (var a in punchList)
-                                                        //    {
-                                                        //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                                        //        {
-                                                        //            if (a.Value == true)
-                                                        //            {
-                                                        //                //Console.WriteLine("key~~~" + a.Key);
-                                                        //                PunchSavesetnumToSQLite(setnum);
-                                                        //                //Console.WriteLine("setnum~~3~~ " + setnum);
-                                                        //                setnum = setnum - 1;
-                                                        //                //Console.WriteLine("setnum~~4~~ " + setnum);
-
-                                                        //            }
-
-                                                        //        }
-                                                        //    }
-                                                        //}
-                                                        if (setnum == 0 || total_need_to_serve > setnum)
+                                                        if (a.Key == totalList.daily_shipments[setnum].ct_name)
                                                         {
-                                                            setnum = setnum + 1;
-                                                            // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                                            // 判斷是否打過卡，有的話就跳過
-                                                            foreach (var a in punchList)
+                                                            if (a.Value == true)
                                                             {
-                                                                if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                                                {
-                                                                    if (a.Value == true)
-                                                                    {
-                                                                        //Console.WriteLine("key~~~" + a.Key);
-                                                                        PunchSavesetnumToSQLite(setnum);
-                                                                        setnum = setnum + 1;
+                                                                //Console.WriteLine("key~~~" + a.Key);
+                                                                PunchSavesetnumToSQLite(setnum);
+                                                                setnum = setnum + 1;
 
-                                                                    }
+                                                            }
+
+                                                        }
+                                                    }
+
+                                                }
+                                                if (MainPage.AUTH == "4")
+                                                {
+                                                    if (totalList.daily_shipments.Count() > setnum)
+                                                    {
+                                                        SetIcon(setnum);
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    SetIcon3(setnum);
+                                                }
+                                                //Console.WriteLine("setnumnowifipunchout~~~" + setnum);
+
+                                            }
+                                        }
+                                        //if (BeaconScan.letpunchout == true && punch_in[totalList.daily_shipments[setnum].ct_name] == true && punch_out[totalList.daily_shipments[setnum].ct_name] == false)
+                                        //{
+                                        //    if (CrossConnectivity.Current.IsConnected) // 有連到網路
+                                        //    {
+                                        //        bool web_res2 = await web.Beacon_Punch(MainPage.token, BeaconScan.UUID, 1.ToString()); // 簽到bnl02是1 簽退是2
+                                        //        if (web_res2 == true)
+                                        //        {
+                                        //            // 打卡成功
+                                        //            //await DisplayAlert("SUCESS", "簽退成功in" + setName + "的家", "OK");
+                                        //            // 幾秒之後alert自動消失
+                                        //            // 跳出回饋單
+                                        //            formout.IsVisible = true;
+                                        //            formout.IsEnabled = true;
+                                        //            Form.IsVisible = true;
+                                        //            Form.IsEnabled = true;
+                                        //            punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 謙退成功
+                                        //                                                                             //PunchSavepunchnameToSQLite(totalList.daily_shipments[setnum].ct_name);
+                                        //            //Console.WriteLine("punchout~~~gps" + punch_out[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
+                                        //            //punch_in[cList[i].ct_name] = false;
+                                        //            //which = 0;
+                                        //            punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true
+
+                                        //            //Console.WriteLine("punchList~~~" + punchList[totalList.daily_shipments[setnum].ct_name] + "name " + totalList.daily_shipments[setnum].ct_name);
+                                        //            if (isform[totalList.daily_shipments[setnum].ct_name] == false)
+                                        //            {
+                                        //                setQues(setnum);
+                                        //                isform[totalList.daily_shipments[setnum].ct_name] = true;
+                                        //            }
+                                        //            //trylist2.Add(setnum);
+                                        //            PunchSavesetnumToSQLite(setnum);
+                                        //            //Console.WriteLine("setnumadd111~~~" + setnum + "count " + trylist2.Count());
+                                        //            num = num + 1;
+                                        //            //if (setnum != 0)
+                                        //            //{
+
+                                        //            //    setnum = setnum - 1;
+                                        //            //    // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                        //            //    // 判斷是否打過卡，有的話就跳過
+                                        //            //    foreach(var a in punchList)
+                                        //            //    {
+                                        //            //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                        //            //        {
+                                        //            //            if(a.Value == true)
+                                        //            //            {
+                                        //            //                //Console.WriteLine("key~~~" + a.Key);
+                                        //            //                PunchSavesetnumToSQLite(setnum);
+                                        //            //                setnum = setnum - 1;
+
+                                        //            //            }
+
+                                        //            //        }
+                                        //            //    }
+
+                                        //            //}
+                                        //            if (setnum == 0 || total_need_to_serve > setnum)
+                                        //            {
+
+                                        //                setnum = setnum + 1;
+                                        //                // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                        //                // 判斷是否打過卡，有的話就跳過
+                                        //                foreach (var a in punchList)
+                                        //                {
+                                        //                    if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                        //                    {
+                                        //                        if (a.Value == true)
+                                        //                        {
+                                        //                            //Console.WriteLine("key~~~" + a.Key);
+                                        //                            PunchSavesetnumToSQLite(setnum);
+                                        //                            setnum = setnum + 1;
+
+                                        //                        }
+
+                                        //                    }
+                                        //                }
+
+                                        //            }
+                                        //            if (MainPage.AUTH == "4")
+                                        //            {
+                                        //                //Console.WriteLine("setnumLA~~~~" + setnum);
+                                        //                if (totalList.daily_shipments.Count() > setnum)
+                                        //                {
+                                        //                    SetIcon(setnum);
+                                        //                }
+
+                                        //                // //Console.WriteLine("ship_setnum~~" + totalList.daily_shipments[setnum]);
+                                        //            }
+                                        //            else
+                                        //            {
+                                        //                SetIcon3(setnum);
+                                        //            }
+                                        //            //Console.WriteLine("setnumwifipunchout~~~" + setnum);
+
+                                        //            ////Console.WriteLine("setnum2222~~~~" + setnum);
+                                        //            ////Console.WriteLine("who4" + totalList.daily_shipments[setnum].ct_name);
+                                        //            ////Console.WriteLine("punch4" + punchList[totalList.daily_shipments[setnum].ct_name]);
+                                        //            ////Console.WriteLine("BEEQQ~~ " + BeaconScan.letpunchout);
+                                        //            await Task.Delay(10000); // 30秒
+                                        //            Messager3();
+                                        //            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
+                                        //            // 自動跳到下一家的google map位置
+
+                                        //            //if(gomap[totalList.daily_shipments[setnum].ct_name] == false)
+                                        //            //{
+                                        //            //    gps2 = totalList.daily_shipments[setnum].ClientLatitude + "," + totalList.daily_shipments[setnum].ClientLongitude;
+                                        //            //    string uri = "https://www.google.com.tw/maps/place/" + gps2;
+                                        //            //    //Console.WriteLine("URI" + uri);
+                                        //            //    if (await Launcher.CanOpenAsync(uri))
+                                        //            //    {
+                                        //            //        await Launcher.OpenAsync(uri);
+                                        //            //        gomap[totalList.daily_shipments[setnum].ct_name] = true;
+                                        //            //    }
+                                        //            //    else
+                                        //            //    {
+                                        //            //        await DisplayAlert(param.SYSYTEM_MESSAGE, param.BROWSER_ERROR_MESSAGE, param.DIALOG_MESSAGE);
+                                        //            //    }
+                                        //            //}
+
+                                        //            // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`//
+                                        //            //punchoutmsg = "SUCESS簽退成功in" + setName + "的家";
+                                        //            ////Console.WriteLine("punchinmsg" + punchoutmsg);
+                                        //            //Thread.Sleep(5000); // 等待五秒之後
+                                        //            //fadeformout(); // 簽退成功訊息自動消失
+
+                                        //        }
+                                        //        else
+                                        //        {
+                                        //            //await DisplayAlert("FAIL", "打卡失敗in" + setName, "OK");
+                                        //            //Console.WriteLine("簽退失敗");
+                                        //        }
+                                        //    }
+                                        //    else // 無網路環境下，先將要打卡資料存進SQLite
+                                        //    {
+                                        //        //Console.WriteLine("nowifiadd_out~~~~");
+                                        //        //Console.WriteLine("name~" + Clname);
+                                        //        //Console.WriteLine("ct_s_num~~" + ct_s_num);
+                                        //        //Console.WriteLine("sec_s_num~~" + sec_s_num);
+                                        //        //Console.WriteLine("mlo_s_num~~" + mlo_s_num);
+                                        //        //Console.WriteLine("bn_s_num~~" + bn_s_num);
+                                        //        ////Console.WriteLine("");
+                                        //        inorout = "out";
+                                        //        PunchSaveToSQLite(MainPage.token, Clname, inorout, ct_s_num, sec_s_num, mlo_s_num, position.Latitude, position.Longitude);
+
+                                        //        punch_out[totalList.daily_shipments[setnum].ct_name] = true;  // 謙退成功
+                                        //        punchList[totalList.daily_shipments[setnum].ct_name] = true; // 打卡完成設為true
+                                        //        PunchTmp2.SaveAccountAsync(new PunchTmp2
+                                        //        {
+                                        //            name = totalList.daily_shipments[setnum].ct_name,
+                                        //            time = DateTime.Now.ToShortTimeString()
+                                        //        });
+                                        //        PunchSavesetnumToSQLite(setnum);
+                                        //        trylist2.Add(setnum);
+                                        //        //Console.WriteLine("setnumadd22~~~" + setnum + "count " + trylist2.Count());
+                                        //        //if (setnum != 0)
+                                        //        //{
+                                        //        //    setnum = setnum - 1;
+                                        //        //    // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                        //        //    // 判斷是否打過卡，有的話就跳過
+                                        //        //    foreach (var a in punchList)
+                                        //        //    {
+                                        //        //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                        //        //        {
+                                        //        //            if (a.Value == true)
+                                        //        //            {
+                                        //        //                //Console.WriteLine("key~~~" + a.Key);
+                                        //        //                PunchSavesetnumToSQLite(setnum);
+                                        //        //                setnum = setnum - 1;
+
+                                        //        //            }
+
+                                        //        //        }
+                                        //        //    }
+                                        //        //}
+                                        //        if (setnum == 0 || total_need_to_serve > setnum)
+                                        //        {
+
+                                        //            setnum = setnum + 1;
+                                        //            // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                        //            // 判斷是否打過卡，有的話就跳過
+                                        //            foreach (var a in punchList)
+                                        //            {
+                                        //                if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                        //                {
+                                        //                    if (a.Value == true)
+                                        //                    {
+                                        //                        //Console.WriteLine("key~~~" + a.Key);
+                                        //                        PunchSavesetnumToSQLite(setnum);
+                                        //                        setnum = setnum + 1;
+
+                                        //                    }
+
+                                        //                }
+                                        //            }
+
+                                        //        }
+                                        //        if (MainPage.AUTH == "4")
+                                        //        {
+                                        //            if (totalList.daily_shipments.Count() > setnum)
+                                        //            {
+                                        //                SetIcon(setnum);
+                                        //            }
+
+                                        //        }
+                                        //        else
+                                        //        {
+                                        //            SetIcon3(setnum);
+                                        //        }
+
+                                        //    }
+
+                                        //}
+                                        if (setnum == 0 || total_need_to_serve > setnum)
+                                        {
+                                            if (punchyesorno[totalList.daily_shipments[setnum].ct_name] == true) // 先確定是有進入判斷，而不是尚未進入判斷
+                                            {
+                                                // 簽到失敗導致無法簽退，因此簽退也失敗，且已經送完這個案主(遠離案主家)(目前設距離>50m)
+                                                // 必須讓他繼續跳到下一個案主家進行判斷
+                                                if (d > 50 && punch_in[totalList.daily_shipments[setnum].ct_name] == false) // 簽到失敗且簽退失敗，距離大於10(遠離案主家)
+                                                {
+                                                    PunchSavesetnumToSQLite(setnum);
+                                                    //Console.WriteLine("setnum~~1~~ " + setnum);
+                                                    //trylist2.Add(setnum);
+                                                    //Console.WriteLine("setnumadd333~~~" + setnum + "count " + trylist2.Count());
+                                                    //if (setnum != 0)
+                                                    //{
+                                                    //    setnum = setnum - 1;
+                                                    //    //Console.WriteLine("setnum~~2~~ " + setnum);
+                                                    //    // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                                    //    // 判斷是否打過卡，有的話就跳過
+                                                    //    foreach (var a in punchList)
+                                                    //    {
+                                                    //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                                    //        {
+                                                    //            if (a.Value == true)
+                                                    //            {
+                                                    //                //Console.WriteLine("key~~~" + a.Key);
+                                                    //                PunchSavesetnumToSQLite(setnum);
+                                                    //                //Console.WriteLine("setnum~~3~~ " + setnum);
+                                                    //                setnum = setnum - 1;
+                                                    //                //Console.WriteLine("setnum~~4~~ " + setnum);
+
+                                                    //            }
+
+                                                    //        }
+                                                    //    }
+                                                    //}
+                                                    if (setnum == 0 || total_need_to_serve > setnum)
+                                                    {
+                                                        setnum = setnum + 1;
+                                                        // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                                        // 判斷是否打過卡，有的話就跳過
+                                                        foreach (var a in punchList)
+                                                        {
+                                                            if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                                            {
+                                                                if (a.Value == true)
+                                                                {
+                                                                    //Console.WriteLine("key~~~" + a.Key);
+                                                                    PunchSavesetnumToSQLite(setnum);
+                                                                    setnum = setnum + 1;
 
                                                                 }
+
                                                             }
                                                         }
-                                                        if (MainPage.AUTH == "4")
-                                                        {
-                                                            SetIcon(setnum);
-                                                        }
-                                                        else
-                                                        {
-                                                            SetIcon3(setnum);
-                                                        }
-                                                        //Console.WriteLine("setnumwifidistance~~~" + setnum);
-
                                                     }
-                                                    // 簽到成功但簽退失敗，距離大於10(遠離案主家)(目前設距離>50m)
-                                                    // 簽到成功但是簽退失敗，且已經完成該案主送餐
-                                                    // 必須讓他繼續跳他下一家進行判斷
-                                                    if (d > 50 && punch_in[totalList.daily_shipments[setnum].ct_name] == true && punch_out[totalList.daily_shipments[setnum].ct_name] == false) 
+                                                    if (MainPage.AUTH == "4")
                                                     {
-                                                        PunchSavesetnumToSQLite(setnum);
-                                                        //trylist2.Add(setnum);
-                                                        //Console.WriteLine("setnumadd444~~~" + setnum + "count " + trylist2.Count());
-                                                        //if (setnum != 0)
-                                                        //{
-                                                        //    setnum = setnum - 1;
-                                                        //    // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                                        //    // 判斷是否打過卡，有的話就跳過
-                                                        //    foreach (var a in punchList)
-                                                        //    {
-                                                        //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
-                                                        //        {
-                                                        //            if (a.Value == true)
-                                                        //            {
-                                                        //                //Console.WriteLine("key~~~" + a.Key);
-                                                        //                PunchSavesetnumToSQLite(setnum);
-                                                        //                setnum = setnum - 1;
+                                                        SetIcon(setnum);
+                                                    }
+                                                    else
+                                                    {
+                                                        SetIcon3(setnum);
+                                                    }
+                                                    //Console.WriteLine("setnumwifidistance~~~" + setnum);
 
-                                                        //            }
+                                                }
+                                                // 簽到成功但簽退失敗，距離大於10(遠離案主家)(目前設距離>50m)
+                                                // 簽到成功但是簽退失敗，且已經完成該案主送餐
+                                                // 必須讓他繼續跳他下一家進行判斷
+                                                if (d > 50 && punch_in[totalList.daily_shipments[setnum].ct_name] == true && punch_out[totalList.daily_shipments[setnum].ct_name] == false)
+                                                {
+                                                    PunchSavesetnumToSQLite(setnum);
+                                                    //trylist2.Add(setnum);
+                                                    //Console.WriteLine("setnumadd444~~~" + setnum + "count " + trylist2.Count());
+                                                    //if (setnum != 0)
+                                                    //{
+                                                    //    setnum = setnum - 1;
+                                                    //    // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                                    //    // 判斷是否打過卡，有的話就跳過
+                                                    //    foreach (var a in punchList)
+                                                    //    {
+                                                    //        if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                                    //        {
+                                                    //            if (a.Value == true)
+                                                    //            {
+                                                    //                //Console.WriteLine("key~~~" + a.Key);
+                                                    //                PunchSavesetnumToSQLite(setnum);
+                                                    //                setnum = setnum - 1;
 
-                                                        //        }
-                                                        //    }
-                                                        //}
-                                                        if (setnum == 0 || total_need_to_serve > setnum)
+                                                    //            }
+
+                                                    //        }
+                                                    //    }
+                                                    //}
+                                                    if (setnum == 0 || total_need_to_serve > setnum)
+                                                    {
+                                                        setnum = setnum + 1;
+                                                        // for該案主同時有兩張單的狀況(只需要打卡一次)
+                                                        // 判斷是否打過卡，有的話就跳過
+                                                        foreach (var a in punchList)
                                                         {
-                                                            setnum = setnum + 1;
-                                                            // for該案主同時有兩張單的狀況(只需要打卡一次)
-                                                            // 判斷是否打過卡，有的話就跳過
-                                                            foreach (var a in punchList)
+                                                            if (a.Key == totalList.daily_shipments[setnum].ct_name)
                                                             {
-                                                                if (a.Key == totalList.daily_shipments[setnum].ct_name)
+                                                                if (a.Value == true)
                                                                 {
-                                                                    if (a.Value == true)
-                                                                    {
-                                                                        //Console.WriteLine("key~~~" + a.Key);
-                                                                        PunchSavesetnumToSQLite(setnum);
-                                                                        setnum = setnum + 1;
+                                                                    //Console.WriteLine("key~~~" + a.Key);
+                                                                    PunchSavesetnumToSQLite(setnum);
+                                                                    setnum = setnum + 1;
 
-                                                                    }
+                                                                }
 
+                                                            }
+                                                            else
+                                                            {
+                                                                if (MainPage.AUTH == "4")
+                                                                {
+                                                                    SetIcon(setnum);
                                                                 }
                                                                 else
                                                                 {
-                                                                    if (MainPage.AUTH == "4")
-                                                                    {
-                                                                        SetIcon(setnum);
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        SetIcon3(setnum);
-                                                                    }
+                                                                    SetIcon3(setnum);
                                                                 }
                                                             }
                                                         }
-
-                                                        //Console.WriteLine("setnumwifidistance~~~" + setnum);
-
                                                     }
+
+                                                    //Console.WriteLine("setnumwifidistance~~~" + setnum);
+
                                                 }
                                             }
-
-                                            //if(d > 2 && punch_in[totalList.daily_shipments[setnum].ct_name] == false && punch_out[totalList.daily_shipments[setnum].ct_name] == false) // 不管簽到簽退是否成功，單純用距離判斷將地圖上的icon換到下 一位案主
-                                            //{
-                                            //    if (setnum != 0)
-                                            //    {
-                                            //        setnum = setnum - 1;
-                                            //    }
-                                            //    SetIcon(setnum);
-                                            //    //Console.WriteLine("setnumwifidistance~~~" + setnum);
-                                            //    PunchSavesetnumToSQLite(setnum);
-                                            //}
                                         }
 
+                                        //if(d > 2 && punch_in[totalList.daily_shipments[setnum].ct_name] == false && punch_out[totalList.daily_shipments[setnum].ct_name] == false) // 不管簽到簽退是否成功，單純用距離判斷將地圖上的icon換到下 一位案主
+                                        //{
+                                        //    if (setnum != 0)
+                                        //    {
+                                        //        setnum = setnum - 1;
+                                        //    }
+                                        //    SetIcon(setnum);
+                                        //    //Console.WriteLine("setnumwifidistance~~~" + setnum);
+                                        //    PunchSavesetnumToSQLite(setnum);
                                         //}
-
-
                                     }
+
+                                    //}
+
+
                                 }
-                                
-                            }
-                            else
-                            {
-                                Console.WriteLine("setnumBBB~~~ " + setnum);
-                                Console.WriteLine("totalneedtoserve~~~ " + total_need_to_serve);
-                                DeliverEnd.IsVisible = true;
-                                Dist.IsVisible = false;
                             }
 
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            //Console.WriteLine("GET");
-                            //Console.WriteLine("ERRORLA~~~" + ex.ToString());
-                            if (!isAlert)
-                            {
-                                isAlert = true;
-                                await DisplayAlert(param.SYSYTEM_MESSAGE, param.LOCATION_ERROR_MESSAGE, param.DIALOG_AGREE_MESSAGE);
-                            }
+                            Console.WriteLine("setnumBBB~~~ " + setnum);
+                            Console.WriteLine("totalneedtoserve~~~ " + total_need_to_serve);
+                            DeliverEnd.IsVisible = true;
+                            Dist.IsVisible = false;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        //Console.WriteLine("GET");
+                        //Console.WriteLine("ERRORLA~~~" + ex.ToString());
+                        if (!isAlert)
+                        {
+                            isAlert = true;
+                            await DisplayAlert(param.SYSYTEM_MESSAGE, param.LOCATION_ERROR_MESSAGE, param.DIALOG_AGREE_MESSAGE);
                         }
                     }
-                    else
-                    {
-                        //Console.WriteLine("Location null~~");
-                    }
+                }
+                else
+                {
+                    //Console.WriteLine("Location null~~");
+                }
                 //}
             }
             catch (Exception ex)
@@ -2100,7 +2128,7 @@ namespace PULI.Views
             }
         }
 
-       
+
 
         // 產生問卷
         private async void setQues(int which)
@@ -2847,7 +2875,7 @@ namespace PULI.Views
             MyMap.UiSettings.RotateGesturesEnabled = true;
 
             MyMap.UiSettings.MyLocationButtonEnabled = true;
-            if(MainPage.AUTH == "6")
+            if (MainPage.AUTH == "6")
             {
                 if (MainPage.userList.daily_shipment_nums > 0)
                 {
@@ -2871,7 +2899,7 @@ namespace PULI.Views
                     DeliverMap.UiSettings.MyLocationButtonEnabled = true;
                 }
             }
-            
+
         }
         // for社工身分且協助送餐的送餐地圖
         private void PinMarker(string resource, Xamarin.Forms.GoogleMaps.Position position, string label, string gps)
@@ -2879,7 +2907,7 @@ namespace PULI.Views
             try
             {
                 //Console.WriteLine("PIN");
-                
+
                 var pin = new Pin()
                 {
                     Icon = ResourceToBitmap(resource),
@@ -2939,7 +2967,7 @@ namespace PULI.Views
                 //Console.WriteLine("pinbday~~~" + bday);
                 //Console.WriteLine("pinphone~~~" + phone);
                 //Console.WriteLine("DDD");
-                if(gender == "F")
+                if (gender == "F")
                 {
                     gendertxt = "男";
                 }
@@ -2966,7 +2994,7 @@ namespace PULI.Views
                             clnName.Text = label;
                             clnGender.Text = "性別: " + gendertxt;
                             clnBday.Text = "生日: " + bday;
-                            clnPhone.Text = "電話: " +phone;
+                            clnPhone.Text = "電話: " + phone;
                             clnCellphone.Text = "手機: " + cellphone;
                         }
 
@@ -3037,7 +3065,7 @@ namespace PULI.Views
         {
             InfoWindow.IsVisible = false;
         }
-        private  async void navigatebtn_Clicked(object sender, EventArgs e)
+        private async void navigatebtn_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -3178,7 +3206,7 @@ namespace PULI.Views
         {
             try
             {
-                
+
                 MessagingCenter.Subscribe<HomeView, bool>(this, "SET_MAP", (sender, arg) =>
                 {
                     // do something when the msg "UPDATE_BONUS" is recieved
@@ -3186,7 +3214,7 @@ namespace PULI.Views
                     {
 
                         //Console.WriteLine("MAPPPPPPP");
-                     
+
                         buttonhelp.IsVisible = false;
                         buttonhelp.IsEnabled = false;
                         buttondeliver.IsEnabled = false;
@@ -3222,7 +3250,7 @@ namespace PULI.Views
                         setView();
                     }
                 });
-                
+
                 MessagingCenter.Subscribe<MapView, bool>(this, "CLOSE_INFORM", (sender, arg) =>
                 {
                     // do something when the msg "UPDATE_BONUS" is recieved
@@ -3240,16 +3268,16 @@ namespace PULI.Views
                         formclose();
                     }
                 });
-                
+
                 MessagingCenter.Subscribe<MemberView, bool>(this, "LOGOUT", (sender, arg) =>
                 {
-                    if(arg)
+                    if (arg)
                     {
                         clientList = null;
                         //cList.Clear();
 
                         cList2.Clear();
-                        
+
                         totalList = null;
                         allclientList.Clear();
                         MyMap.Pins.Clear();
@@ -3261,7 +3289,7 @@ namespace PULI.Views
                         Navigation.PushAsync(new MapView());
                     }
                 });
-                
+
             }
             catch (Exception ex)
             {

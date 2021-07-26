@@ -68,6 +68,7 @@ namespace PULI
             identityStack.Children.Add(pickerStack());
             //fooDoggyDatabase.DeleteAll();
             //Content = ViewService.LoadingLogin();
+            
             checkDatabase();
 
         }
@@ -276,73 +277,7 @@ namespace PULI
                                 });
                                 Console.WriteLine("date_nodata_save~~");
                             }
-                            //~~~~~~~~~~~~~`test3~~~~~~~~~~~~~~~~~~~
-                            //if (dateDatabase.GetAccountAsync2().Count() != 0) // 裡面有資料，先比對
-                            //{
-                            //    string oldday = dateDatabase.GetAccountAsync2().Last().date;
-                            //    string oldday2 = fooDoggyDatabase.GetAccountAsync().Last().login_time;
-                            //    Console.WriteLine("oldday2~~~" + oldday2);
-                            //    Console.WriteLine("oldday~~~main~~~2~~~" + oldday);
-                            //    Console.WriteLine("_login_time~~main~~~2~~" + _login_time);
-                            //    Console.WriteLine("LoginTime~~~" + LoginTime);
-                            //    // Console.WriteLine("date~~~" + date);
-                            //    if (_login_time.Equals(LoginTime) == false)
-                            //    {
-                            //        Console.WriteLine("test~~3~~~");
-                            //        if (MapView.AccDatabase.GetAccountAsync2().Count() != 0)
-                            //        {
-                            //            MapView.AccDatabase.DeleteAll();
-                            //        }
-                            //        if (MapView.PunchDatabase.GetAccountAsync2().Count() != 0)
-                            //        {
-                            //            MapView.PunchDatabase.DeleteAll();
-                            //        }
-                            //        if (MapView.PunchDatabase2.GetAccountAsync2().Count() != 0)
-                            //        {
-                            //            MapView.PunchDatabase2.DeleteAll();
-                            //        }
-                            //        if (MapView.PunchTmp.GetAccountAsync2().Count() != 0)
-                            //        {
-                            //            MapView.PunchTmp.DeleteAll();
-                            //        }
-                            //        if (MapView.PunchTmp2.GetAccountAsync2().Count() != 0)
-                            //        {
-                            //            MapView.PunchTmp2.DeleteAll();
-                            //        }
-                            //        if (MapView.PunchYN.GetAccountAsync2().Count() != 0)
-                            //        {
-                            //            MapView.PunchYN.DeleteAll();
-                            //        }
-                            //        if(MapView.name_list_in.Count() != 0)
-                            //        {
-                            //            MapView.name_list_in.Clear();
-                            //        }
-                            //        if(MapView.name_list_out.Count() != 0)
-                            //        {
-                            //            MapView.name_list_out.Clear();
-                            //        }
-                                    
-
-
-                            //        checkdate = true;
-                            //        //Console.WriteLine("howmany~" + MapView.PunchDatabase2.GetAccountAsync2().Count());
-                            //        dateDatabase.DeleteAll(); // 讓裡面永遠只保持最新的一筆
-                            //        dateDatabase.SaveAccountAsync(new CheckDate
-                            //        {
-                            //            date = _login_time
-                            //        });
-
-                            //    }
-                            //}
-                            //else // 裡面還沒有資料
-                            //{
-                            //    dateDatabase.SaveAccountAsync(
-                            //    new CheckDate
-                            //    {
-                            //        date = _login_time
-                            //    });
-                            //    Console.WriteLine("date_nodata_save~~");
-                            //}
+                           
 
 
 
@@ -461,7 +396,7 @@ namespace PULI
                     userList = await web.Login(account.Text, pwd.Text, _identity);
                     _login_time = userList.login_time;
                     Console.WriteLine("login_time~~~" + _login_time);
-                    //Console.WriteLine("usrstate~~~" + userList.state);
+                    Console.WriteLine("usrstate~~~" + userList.state);
                     Console.WriteLine("internet222~~~" + CrossConnectivity.Current.IsConnected);
                     if (userList.state == "false")
                     {
@@ -485,11 +420,11 @@ namespace PULI
                     }
                     else
                     {
-                        fooDoggyDatabase.DeleteAll();
+                        
                         Login.IsVisible = false;
                         Login.IsEnabled = false;
 
-
+                        fooDoggyDatabase.DeleteAll();
                         token += userList.acc_token;
                         Console.WriteLine("OOOOOAAAA " + token);
                         AUTH = userList.acc_auth;
